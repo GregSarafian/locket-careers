@@ -1,4 +1,5 @@
 import { Reveal } from '../motion/Reveal';
+import { InteractiveDottedMap } from './InteractiveDottedMap';
 
 export function OurTeam() {
   return (
@@ -14,13 +15,7 @@ export function OurTeam() {
         <Reveal delay={0.05}>
           <div className="rounded-[40px] bg-gradient-to-b from-white/[0.03] to-white/[0.05]">
             <div className="p-6">
-              <div className="aspect-[892/426] w-full">
-                <img
-                  src="/assets/team/dotted-map.svg"
-                  alt="Map showing global team locations"
-                  className="block w-full h-full object-contain"
-                />
-              </div>
+              <InteractiveDottedMap />
             </div>
             <div className="p-6">
               <p className="font-semibold text-[20px] leading-[25px] text-white/80">
