@@ -23,6 +23,7 @@ export default function Home() {
         <HappierIntro />
         <AboutStats />
         <OurTeam />
+        <OpenRoles />
         <WhatItsLike />
         <Challenges />
         <Funding />
@@ -30,7 +31,6 @@ export default function Home() {
         <Perks />
         <UserTestimonials />
         <Press />
-        <OpenRoles />
         <WhatsNext />
       </main>
       <Footer />
