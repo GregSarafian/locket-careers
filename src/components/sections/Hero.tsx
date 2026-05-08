@@ -77,7 +77,7 @@ export function Hero() {
       <div
         className="relative mx-auto"
         style={{
-          width: `min(1500px, 100vw)`,
+          width: `min(1500px, 100vw, calc((100dvh - 320px) * ${CANVAS_W} / ${CANVAS_H}))`,
           aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
           containerType: 'inline-size',
         }}
