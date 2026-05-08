@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+.DS_Store
+*.local
+.vite
+*.log
+.env
+.env.local
+.env.*.local
+careers.fig
+careers-snapshot.png
