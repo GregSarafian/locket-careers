@@ -57,17 +57,26 @@ function AccordionRow({
   trait,
   open,
   onToggle,
+  dimmed,
+  onHoverStart,
+  onHoverEnd,
 }: {
   trait: Trait;
   open: boolean;
   onToggle: () => void;
+  dimmed: boolean;
+  onHoverStart: () => void;
+  onHoverEnd: () => void;
 }) {
   const expandable = !!trait.body;
   return (
     <div
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
       className={[
-        'rounded-[24px] transition-colors',
+        'rounded-[24px] transition-colors transition-opacity duration-200',
         open ? 'bg-white/5' : 'bg-transparent',
+        dimmed ? 'opacity-40' : 'opacity-100',
       ].join(' ')}
     >
       <button
@@ -102,6 +111,7 @@ function AccordionRow({
 
 export function WhatItsLike() {
   const [openIndex, setOpenIndex] = useState<number>(-1);
+  const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
 
   return (
     <section className="px-6 md:px-[120px] py-10">
@@ -153,6 +163,9 @@ export function WhatItsLike() {
                 trait={t}
                 open={openIndex === i}
                 onToggle={() => setOpenIndex(openIndex === i ? -1 : i)}
+                dimmed={hoveredIndex !== -1 && hoveredIndex !== i}
+                onHoverStart={() => setHoveredIndex(i)}
+                onHoverEnd={() => setHoveredIndex(-1)}
               />
             ))}
           </div>
