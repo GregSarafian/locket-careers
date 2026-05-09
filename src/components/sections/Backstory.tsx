@@ -1,6 +1,25 @@
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
 
+const underlineVariants = {
+  rest: {
+    scaleX: 0,
+    opacity: 0,
+    transition: {
+      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  },
+  hover: {
+    scaleX: 1,
+    opacity: 1,
+    transition: {
+      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+      opacity: { duration: 0.05 },
+    },
+  },
+};
+
 function Polaroid({
   src,
   size = 160,
@@ -109,8 +128,26 @@ export function Backstory() {
               />
             </div>
 
-            <p className="mt-2 font-semibold text-[13px] leading-[18px] tracking-[0.26px] text-white/30">
-              Matt Moss, Locket Founder
+            <p className="mt-2 font-semibold text-[15px] leading-[20px] tracking-[0.26px] text-white/80">
+              <motion.a
+                href="https://x.com/thefuturematt"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial="rest"
+                animate="rest"
+                whileHover="hover"
+                whileTap={{ scale: 0.9 }}
+                className="relative inline-block pb-0.5 hover:text-white/60 transition-colors duration-200"
+              >
+                Matt Moss
+                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[1px] bg-white/20" />
+                <motion.span
+                  aria-hidden
+                  className="absolute left-0 right-0 bottom-0 h-[1px] bg-white/30 origin-center"
+                  variants={underlineVariants}
+                />
+              </motion.a>
+              , Locket Founder
             </p>
           </Reveal>
         </div>
