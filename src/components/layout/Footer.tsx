@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 type LinkGroup = {
   heading: string;
   links: { label: string; href: string }[];
@@ -76,18 +78,19 @@ export function Footer() {
                 height={32}
               />
             </a>
-            <ul className="flex items-center gap-3 text-white/40">
+            <ul className="flex items-center gap-6 text-white/40">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a
+                  <motion.a
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
+                    whileTap={{ scale: 0.9 }}
                     className="inline-flex items-center justify-center hover:text-white transition-colors"
                   >
                     {s.icon}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
@@ -98,13 +101,14 @@ export function Footer() {
               <div key={g.heading} className="w-[200px] flex flex-col items-start gap-4">
                 <p className="font-bold text-white/80">{g.heading}</p>
                 {g.links.map((l) => (
-                  <a
+                  <motion.a
                     key={l.label}
                     href={l.href}
+                    whileTap={{ scale: 0.9 }}
                     className="font-semibold text-white/40 hover:text-white/80 transition-colors"
                   >
                     {l.label}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             ))}

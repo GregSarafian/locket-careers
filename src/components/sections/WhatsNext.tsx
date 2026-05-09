@@ -1,4 +1,5 @@
 import { Reveal } from '../motion/Reveal';
+import { motion } from 'framer-motion';
 
 export function WhatsNext() {
   return (
@@ -14,12 +15,41 @@ export function WhatsNext() {
         <Reveal delay={0.1}>
           <p className="font-bold text-[20px] leading-tight text-white/80">
             Email us at{' '}
-            <a
+            <motion.a
               href="mailto:jobs@locketcamera.com"
-              className="text-[var(--color-accent)] underline decoration-solid"
+              initial="rest"
+              animate="rest"
+              whileHover="hover"
+              whileTap={{ scale: 0.9 }}
+              className="inline-flex items-start text-[var(--color-accent)]"
             >
-              jobs@locketcamera.com
-            </a>{' '}
+              <span className="relative pb-1.5">
+                jobs@locketcamera.com
+                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+                <motion.span
+                  aria-hidden
+                  className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+                  variants={{
+                    rest: {
+                      scaleX: 0,
+                      opacity: 0,
+                      transition: {
+                        scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                        opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                      },
+                    },
+                    hover: {
+                      scaleX: 1,
+                      opacity: 1,
+                      transition: {
+                        scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                        opacity: { duration: 0.05 },
+                      },
+                    },
+                  }}
+                />
+              </span>
+            </motion.a>{' '}
             to apply or reach out to one of us personally.
           </p>
         </Reveal>
