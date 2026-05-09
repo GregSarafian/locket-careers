@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
+import { EmojiLayer, useFloatingEmojis } from '../motion/FloatingEmojis';
 
 // Card layout from Figma node 8:35.
 // Native canvas: 1245 x 550 (8 photos, 200x200 each, 16px black border, 40px radius).
@@ -72,10 +73,12 @@ function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) 
 }
 
 export function Hero() {
+  const { emojis, removeEmoji } = useFloatingEmojis();
   return (
     <section className="relative pt-6 md:pt-7 pb-16 md:pb-20 overflow-hidden">
+      <EmojiLayer onTop={false} emojis={emojis} onComplete={removeEmoji} />
       <div
-        className="relative mx-auto"
+        className="relative mx-auto z-10"
         style={{
           width: `min(1500px, 100vw, calc((100dvh - 320px) * ${CANVAS_W} / ${CANVAS_H}))`,
           aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
@@ -86,8 +89,9 @@ export function Hero() {
           <PhotoCard key={c.src} {...c} index={i} />
         ))}
       </div>
+      <EmojiLayer onTop={true} emojis={emojis} onComplete={removeEmoji} />
 
-      <div className="relative flex flex-col items-center justify-center gap-4 py-10 px-6 md:px-[120px] text-center">
+      <div className="relative z-30 flex flex-col items-center justify-center gap-4 py-10 px-6 md:px-[120px] text-center">
         <Reveal delay={0.2}>
           <h1 className="font-bold text-[40px] leading-none text-white/80 whitespace-nowrap">
             Careers at Locket
