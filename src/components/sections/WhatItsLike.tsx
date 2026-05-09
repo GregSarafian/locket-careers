@@ -50,7 +50,7 @@ const traits: Trait[] = [
 function PlusMinusIcon({ open }: { open: boolean }) {
   return (
     <span
-      className="relative inline-block w-[22px] h-[28px] text-[var(--color-accent)] shrink-0"
+      className="relative inline-block w-[22px] h-[22px] text-[var(--color-accent)] shrink-0"
       aria-hidden
     >
       {/* Horizontal bar (always visible) */}
