@@ -27,10 +27,12 @@ export function HappierIntro() {
         <div className="relative rounded-[48px] bg-white/5 p-8 md:p-[60px]">
           {/* iPhone mockup, decorative — bleeds beyond the card */}
           <motion.img
-            src="/assets/happier/phone.png"
+            src="/assets/happier/phone.webp"
             alt=""
             aria-hidden
             draggable={false}
+            loading="lazy"
+            decoding="async"
             initial={{ opacity: 0, x: 60, rotate: -8 }}
             whileInView={{ opacity: 1, x: 0, rotate: -16 }}
             viewport={{ once: true, margin: '-10% 0px' }}

@@ -20,14 +20,14 @@ const CANVAS_H = 550;
 // is horizontally centered within the canvas (Figma had ~138px gap on
 // the left and ~0 on the right, so we balance to ~69px on each side).
 const cards: Card[] = [
-  { src: '/assets/hero/hero-1.png', left: 69,   top: 221, rotate: -4  },
-  { src: '/assets/hero/hero-2.png', left: 195,  top: 328, rotate: 11  },
-  { src: '/assets/hero/hero-7.png', left: 343,  top: 254, rotate: -10 },
-  { src: '/assets/hero/hero-3.png', left: 500,  top: 172, rotate: 8   },
-  { src: '/assets/hero/hero-4.png', left: 618,  top: 315, rotate: -8  },
-  { src: '/assets/hero/hero-5.png', left: 774,  top: 221, rotate: 0   },
-  { src: '/assets/hero/hero-6.png', left: 888,  top: 343, rotate: 12  },
-  { src: '/assets/hero/hero-8.png', left: 976,  top: 210, rotate: -20 },
+  { src: '/assets/hero/hero-1.webp', left: 69,   top: 221, rotate: -4  },
+  { src: '/assets/hero/hero-2.webp', left: 195,  top: 328, rotate: 11  },
+  { src: '/assets/hero/hero-7.webp', left: 343,  top: 254, rotate: -10 },
+  { src: '/assets/hero/hero-3.webp', left: 500,  top: 172, rotate: 8   },
+  { src: '/assets/hero/hero-4.webp', left: 618,  top: 315, rotate: -8  },
+  { src: '/assets/hero/hero-5.webp', left: 774,  top: 221, rotate: 0   },
+  { src: '/assets/hero/hero-6.webp', left: 888,  top: 343, rotate: 12  },
+  { src: '/assets/hero/hero-8.webp', left: 976,  top: 210, rotate: -20 },
 ];
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;

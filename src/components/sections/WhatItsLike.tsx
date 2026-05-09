@@ -131,9 +131,11 @@ export function WhatItsLike() {
                 className="size-[200px] -mr-[74px] rounded-[40px] overflow-hidden border-[12px] border-[#0d0900] bg-[#312a1a] rotate-[-8deg]"
               >
                 <img
-                  src="/assets/whatitslike/photo-1.png"
+                  src="/assets/whatitslike/photo-1.webp"
                   alt=""
                   aria-hidden
+                  loading="lazy"
+                  decoding="async"
                   className="block size-full object-cover"
                   draggable={false}
                 />
@@ -143,9 +145,11 @@ export function WhatItsLike() {
                 className="size-[167px] rounded-[32px] overflow-hidden border-[12px] border-[#0d0900] rotate-[9deg]"
               >
                 <img
-                  src="/assets/whatitslike/photo-2.png"
+                  src="/assets/whatitslike/photo-2.webp"
                   alt=""
                   aria-hidden
+                  loading="lazy"
+                  decoding="async"
                   className="block size-full object-cover"
                   draggable={false}
                 />

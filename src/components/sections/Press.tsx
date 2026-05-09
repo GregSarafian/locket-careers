@@ -60,6 +60,8 @@ export function Press() {
                   src={p.image}
                   alt=""
                   aria-hidden
+                  loading="lazy"
+                  decoding="async"
                   className="block size-full object-cover"
                   draggable={false}
                 />
