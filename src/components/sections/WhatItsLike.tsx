@@ -10,8 +10,8 @@ type PhotoCard = {
 };
 
 const photos: PhotoCard[] = [
-  { src: '/assets/whatitslike/photo-1.png', title: 'In the Studio', subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/whatitslike/photo-2.png', title: 'Team Time',     subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/whatitslike/photo-1.webp', title: 'In the Studio', subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/whatitslike/photo-2.webp', title: 'Team Time',     subtitle: 'San Francisco, CA · 2024' },
 ];
 
 type Trait = {
@@ -156,6 +156,8 @@ export function WhatItsLike() {
                       src={photos[0].src}
                       alt=""
                       aria-hidden
+                      loading="lazy"
+                      decoding="async"
                       className="block size-full object-cover"
                       draggable={false}
                     />
@@ -179,6 +181,8 @@ export function WhatItsLike() {
                       src={photos[1].src}
                       alt=""
                       aria-hidden
+                      loading="lazy"
+                      decoding="async"
                       className="block size-full object-cover"
                       draggable={false}
                     />
