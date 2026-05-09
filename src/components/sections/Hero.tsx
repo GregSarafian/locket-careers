@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
 import { EmojiLayer, useFloatingEmojis } from '../motion/FloatingEmojis';
+import { ExpandedPhoto } from '../motion/ExpandedPhoto';
 
 // Card layout from Figma node 8:35.
 // Native canvas: 1245 x 550 (8 photos, 200x200 each, 16px black border, 40px radius).
@@ -11,6 +13,8 @@ type Card = {
   left: number;   // px from left within 1245px canvas
   top: number;    // px from top within 550px canvas
   rotate: number; // degrees
+  title: string;
+  subtitle: string;
 };
 
 const CANVAS_W = 1245;
@@ -20,21 +24,29 @@ const CANVAS_H = 550;
 // is horizontally centered within the canvas (Figma had ~138px gap on
 // the left and ~0 on the right, so we balance to ~69px on each side).
 const cards: Card[] = [
-  { src: '/assets/hero/hero-1.png', left: 69,   top: 221, rotate: -4  },
-  { src: '/assets/hero/hero-2.png', left: 195,  top: 328, rotate: 11  },
-  { src: '/assets/hero/hero-7.png', left: 343,  top: 254, rotate: -10 },
-  { src: '/assets/hero/hero-3.png', left: 500,  top: 172, rotate: 8   },
-  { src: '/assets/hero/hero-4.png', left: 618,  top: 315, rotate: -8  },
-  { src: '/assets/hero/hero-5.png', left: 774,  top: 221, rotate: 0   },
-  { src: '/assets/hero/hero-6.png', left: 888,  top: 343, rotate: 12  },
-  { src: '/assets/hero/hero-8.png', left: 976,  top: 210, rotate: -20 },
+  { src: '/assets/hero/hero-1.png', left: 69,   top: 221, rotate: -4,  title: 'Team Offsite',   subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-2.png', left: 195,  top: 328, rotate: 11,  title: 'Family Dinner',  subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-7.png', left: 343,  top: 254, rotate: -10, title: 'Locket Moment',  subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-3.png', left: 500,  top: 172, rotate: 8,   title: 'Group Selfie',   subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-4.png', left: 618,  top: 315, rotate: -8,  title: 'Lunch Break',    subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-5.png', left: 774,  top: 221, rotate: 0,   title: 'Morning Hike',   subtitle: 'Monterey, CA · 2024' },
+  { src: '/assets/hero/hero-6.png', left: 888,  top: 343, rotate: 12,  title: 'Friends',        subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-8.png', left: 976,  top: 210, rotate: -20, title: 'Studio Day',     subtitle: 'San Francisco, CA · 2024' },
 ];
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;
 
-function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) {
+function PhotoCard({
+  src,
+  left,
+  top,
+  rotate,
+  index,
+  isExpanded,
+  onClick,
+}: Card & { index: number; isExpanded: boolean; onClick: () => void }) {
   return (
-    <motion.div
+    <div
       className="absolute"
       style={{
         left: pct(left, CANVAS_W),
@@ -43,37 +55,49 @@ function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) 
         width: 'calc(200 / 1245 * 100cqw)',
         height: 'calc(200 / 1245 * 100cqw)',
       }}
-      initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
-      transition={{
-        duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.05 * index,
-      }}
-      whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
     >
-      <div
-        className="size-full overflow-hidden bg-[#1a1a1a] border-[var(--color-bg)] border-solid"
-        style={{
-          borderWidth: 'calc(16 / 1245 * 100cqw)',
-          borderRadius: 'calc(40 / 1245 * 100cqw)',
-        }}
-      >
-        <img
-          src={src}
-          alt=""
-          aria-hidden
-          loading="eager"
-          className="block size-full object-cover"
-          draggable={false}
-        />
-      </div>
-    </motion.div>
+      {!isExpanded && (
+        <motion.button
+          type="button"
+          layoutId={`hero-card-${index}`}
+          onClick={onClick}
+          aria-label="Expand photo"
+          className="block size-full cursor-pointer p-0 overflow-hidden bg-[#1a1a1a]"
+          style={{
+            borderWidth: 'calc(16 / 1245 * 100cqw)',
+            borderRadius: 'calc(40 / 1245 * 100cqw)',
+            borderColor: 'var(--color-bg)',
+            borderStyle: 'solid',
+            boxSizing: 'border-box',
+            willChange: 'transform',
+          }}
+          initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94 }}
+          animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
+          transition={{
+            duration: 0.9,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.05 * index,
+          }}
+          whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
+        >
+          <img
+            src={src}
+            alt=""
+            aria-hidden
+            loading="eager"
+            className="block size-full object-cover"
+            draggable={false}
+          />
+        </motion.button>
+      )}
+    </div>
   );
 }
 
 export function Hero() {
   const { emojis, removeEmoji } = useFloatingEmojis();
+  const [expanded, setExpanded] = useState<number | null>(null);
+
   return (
     <section className="relative pt-6 md:pt-7 pb-16 md:pb-20 overflow-hidden">
       <EmojiLayer onTop={false} emojis={emojis} onComplete={removeEmoji} />
@@ -86,7 +110,13 @@ export function Hero() {
         }}
       >
         {cards.map((c, i) => (
-          <PhotoCard key={c.src} {...c} index={i} />
+          <PhotoCard
+            key={c.src}
+            {...c}
+            index={i}
+            isExpanded={expanded === i}
+            onClick={() => setExpanded(i)}
+          />
         ))}
       </div>
       <EmojiLayer onTop={true} emojis={emojis} onComplete={removeEmoji} />
@@ -143,6 +173,19 @@ export function Hero() {
           </motion.a>
         </Reveal>
       </div>
+
+      <AnimatePresence>
+        {expanded !== null && (
+          <ExpandedPhoto
+            key="expanded"
+            layoutId={`hero-card-${expanded}`}
+            src={cards[expanded].src}
+            title={cards[expanded].title}
+            subtitle={cards[expanded].subtitle}
+            onClose={() => setExpanded(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

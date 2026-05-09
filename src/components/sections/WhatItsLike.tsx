@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
+import { ExpandedPhoto } from '../motion/ExpandedPhoto';
+
+type PhotoCard = {
+  src: string;
+  title: string;
+  subtitle: string;
+};
+
+const photos: PhotoCard[] = [
+  { src: '/assets/whatitslike/photo-1.png', title: 'In the Studio', subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/whatitslike/photo-2.png', title: 'Team Time',     subtitle: 'San Francisco, CA · 2024' },
+];
 
 type Trait = {
   title: string;
@@ -112,6 +124,7 @@ function AccordionRow({
 export function WhatItsLike() {
   const [openIndex, setOpenIndex] = useState<number>(-1);
   const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
+  const [expandedPhoto, setExpandedPhoto] = useState<number | null>(null);
 
   return (
     <section className="px-6 md:px-[120px] py-10">
@@ -126,30 +139,52 @@ export function WhatItsLike() {
 
           <Reveal delay={0.1}>
             <div className="flex items-end justify-center">
-              <motion.div
-                whileHover={{ rotate: -4, scale: 1.04, transition: { duration: 0.4 } }}
-                className="size-[200px] -mr-[74px] rounded-[40px] overflow-hidden border-[12px] border-[#0d0900] bg-[#312a1a] rotate-[-8deg]"
-              >
-                <img
-                  src="/assets/whatitslike/photo-1.png"
-                  alt=""
-                  aria-hidden
-                  className="block size-full object-cover"
-                  draggable={false}
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ rotate: 4, scale: 1.04, transition: { duration: 0.4 } }}
-                className="size-[167px] rounded-[32px] overflow-hidden border-[12px] border-[#0d0900] rotate-[9deg]"
-              >
-                <img
-                  src="/assets/whatitslike/photo-2.png"
-                  alt=""
-                  aria-hidden
-                  className="block size-full object-cover"
-                  draggable={false}
-                />
-              </motion.div>
+              <div className="size-[200px] -mr-[74px]">
+                {expandedPhoto !== 0 && (
+                  <motion.button
+                    type="button"
+                    layoutId="whatitslike-photo-0"
+                    onClick={() => setExpandedPhoto(0)}
+                    aria-label="Expand photo"
+                    initial={{ rotate: -8 }}
+                    animate={{ rotate: -8 }}
+                    whileHover={{ rotate: -4, scale: 1.04, transition: { duration: 0.4 } }}
+                    className="block size-full p-0 cursor-pointer overflow-hidden"
+                    style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 40, boxSizing: 'border-box', backgroundColor: '#312a1a' }}
+                  >
+                    <img
+                      src={photos[0].src}
+                      alt=""
+                      aria-hidden
+                      className="block size-full object-cover"
+                      draggable={false}
+                    />
+                  </motion.button>
+                )}
+              </div>
+              <div className="size-[167px]">
+                {expandedPhoto !== 1 && (
+                  <motion.button
+                    type="button"
+                    layoutId="whatitslike-photo-1"
+                    onClick={() => setExpandedPhoto(1)}
+                    aria-label="Expand photo"
+                    initial={{ rotate: 9 }}
+                    animate={{ rotate: 9 }}
+                    whileHover={{ rotate: 4, scale: 1.04, transition: { duration: 0.4 } }}
+                    className="block size-full p-0 cursor-pointer overflow-hidden"
+                    style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 32, boxSizing: 'border-box', backgroundColor: 'transparent' }}
+                  >
+                    <img
+                      src={photos[1].src}
+                      alt=""
+                      aria-hidden
+                      className="block size-full object-cover"
+                      draggable={false}
+                    />
+                  </motion.button>
+                )}
+              </div>
             </div>
           </Reveal>
         </div>
@@ -171,6 +206,21 @@ export function WhatItsLike() {
           </div>
         </Reveal>
       </div>
+
+      <AnimatePresence>
+        {expandedPhoto !== null && (
+          <ExpandedPhoto
+            key="expanded"
+            layoutId={`whatitslike-photo-${expandedPhoto}`}
+            src={photos[expandedPhoto].src}
+            title={photos[expandedPhoto].title}
+            subtitle={photos[expandedPhoto].subtitle}
+            onClose={() => setExpandedPhoto(null)}
+            borderWidth={12}
+            borderRadius={expandedPhoto === 1 ? 32 : 40}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
