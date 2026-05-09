@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
 
 type Investor = { name: string; href: string };
@@ -15,7 +16,75 @@ const investors: Investor[] = [
 const READ_MORE =
   'https://techcrunch.com/2022/08/02/locket-app-that-lets-yor-post-photos-to-your-loved-ones-homescreens-raises-12-5m/';
 
-const linkClasses = 'underline decoration-white/30 underline-offset-2 hover:decoration-white/80 transition-colors';
+const underlineVariants = {
+  rest: {
+    scaleX: 0,
+    opacity: 0,
+    transition: {
+      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  },
+  hover: {
+    scaleX: 1,
+    opacity: 1,
+    transition: {
+      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+      opacity: { duration: 0.05 },
+    },
+  },
+};
+
+function InvestorLink({ name, href }: { name: string; href: string }) {
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      whileTap={{ scale: 0.9 }}
+      className="relative inline-block pb-1 text-white/80 hover:text-white transition-colors duration-200"
+    >
+      {name}
+      <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+      <motion.span
+        aria-hidden
+        className="absolute left-0 right-0 bottom-0 h-[2px] bg-white origin-center"
+        variants={underlineVariants}
+      />
+    </motion.a>
+  );
+}
+
+function ReadMoreLink({ href }: { href: string }) {
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      whileTap={{ scale: 0.9 }}
+      className="text-[var(--color-accent)] whitespace-nowrap inline-flex items-center gap-1"
+    >
+      <span className="relative pb-1">
+        Read more here
+        <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+        <motion.span
+          aria-hidden
+          className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+          variants={underlineVariants}
+        />
+      </span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </motion.a>
+  );
+}
 
 export function Funding() {
   return (
@@ -26,33 +95,16 @@ export function Funding() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <p className="font-semibold text-[20px] leading-[25px]">
+          <p className="font-semibold text-[20px] leading-[32px]">
             Yes! We've been lucky to partner with some of the best people in social, including{' '}
             {investors.map((inv, i) => (
               <span key={inv.name}>
-                <a
-                  href={inv.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClasses}
-                >
-                  {inv.name}
-                </a>
+                <InvestorLink name={inv.name} href={inv.href} />
                 {i < investors.length - 1 ? ', ' : ''}
               </span>
             ))}
             , and many more. To date, Locket has raised $12.5M in funding.{' '}
-            <a
-              href={READ_MORE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--color-accent)] hover:underline whitespace-nowrap inline-flex items-center gap-1"
-            >
-              Read more here
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
+            <ReadMoreLink href={READ_MORE} />
           </p>
         </Reveal>
       </div>
