@@ -73,7 +73,7 @@ export function Nav() {
       <nav className="relative w-full max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-12 lg:px-[120px] py-4">
         <a
           href="/"
-          className="flex items-center shrink-0"
+          className="flex items-center shrink-0 transition-transform duration-200 ease-out active:scale-90"
           aria-label="Locket — home"
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
@@ -88,16 +88,16 @@ export function Nav() {
 
         <ul className="hidden md:flex items-center gap-1">
           {links.map((l) => (
-            <li key={l.label}>
+            <li key={l.label} className={l.active ? 'ml-1' : ''}>
               <a
                 href={l.href}
                 className={[
                   'inline-flex items-center justify-center px-4 py-2 rounded-full',
                   'font-bold text-[17px] leading-[22px] tracking-[0.17px] whitespace-nowrap',
-                  'transition-colors duration-150',
+                  'transition-all duration-200 ease-out active:scale-90',
                   l.active
                     ? 'bg-white/10 text-white hover:bg-white/15'
-                    : 'text-white/80 hover:text-white hover:bg-white/5',
+                    : 'text-white/80 hover:text-white hover:bg-white/10',
                 ].join(' ')}
               >
                 {l.label}
@@ -108,7 +108,7 @@ export function Nav() {
 
         <a
           href="https://locket.cam/download"
-          className="md:hidden inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white font-bold text-[15px]"
+          className="md:hidden inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white font-bold text-[15px] transition-transform duration-200 ease-out active:scale-90"
         >
           Download
         </a>
