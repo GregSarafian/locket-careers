@@ -49,10 +49,10 @@ function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) 
         ease: [0.22, 1, 0.36, 1],
         delay: 0.05 * index,
       }}
-      whileHover={{ rotate: rotate * 0.5, scale: 1.05, zIndex: 10, transition: { duration: 0.4 } }}
+      whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
     >
       <div
-        className="size-full overflow-hidden bg-[#1a1a1a] border-[#0d0900] border-solid"
+        className="size-full overflow-hidden bg-[#1a1a1a] border-[var(--color-bg)] border-solid"
         style={{
           borderWidth: 'calc(16 / 1245 * 100cqw)',
           borderRadius: 'calc(40 / 1245 * 100cqw)',
@@ -101,11 +101,38 @@ export function Hero() {
         <Reveal delay={0.4}>
           <motion.a
             href="#open-roles"
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+            whileTap={{ scale: 0.9 }}
             className="inline-flex items-start gap-2 text-[var(--color-accent)] font-bold text-[20px] leading-[25px]"
           >
-            <span className="border-b-2 border-white/20 pb-1.5">Open Roles</span>
+            <span className="relative pb-1.5">
+              Open Roles
+              <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+              <motion.span
+                aria-hidden
+                className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+                variants={{
+                  rest: {
+                    scaleX: 0,
+                    opacity: 0,
+                    transition: {
+                      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                    },
+                  },
+                  hover: {
+                    scaleX: 1,
+                    opacity: 1,
+                    transition: {
+                      scaleX: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                      opacity: { duration: 0.05 },
+                    },
+                  },
+                }}
+              />
+            </span>
             <svg width="20" height="25" viewBox="0 0 20 25" fill="none" aria-hidden className="shrink-0">
               <path d="M5 10l5 5 5-5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

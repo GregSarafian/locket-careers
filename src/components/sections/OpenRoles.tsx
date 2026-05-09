@@ -154,7 +154,7 @@ export function OpenRoles() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
   return (
-    <section id="open-roles" className="px-6 md:px-[120px] py-10">
+    <section id="open-roles" className="px-6 md:px-[120px] py-10 scroll-mt-[140px]">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6">
         <Reveal>
           <h3 className="font-bold text-[28px] leading-tight text-white/80">Open Roles</h3>
