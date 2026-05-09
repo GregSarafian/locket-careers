@@ -38,7 +38,7 @@ function Polaroid({
         className="rounded-[30px] overflow-hidden relative"
         style={{ width: size, height: size }}
       >
-        <img src={src} alt="" aria-hidden draggable={false} className="block size-full object-cover" />
+        <img src={src} alt="" aria-hidden draggable={false} loading="lazy" decoding="async" className="block size-full object-cover" />
         <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)]" />
       </div>
     </motion.div>
@@ -64,10 +64,10 @@ export function Backstory() {
           <Reveal className="shrink-0">
             <div className="relative w-[256px] h-[360px]">
               <div className="absolute left-0 top-0">
-                <Polaroid src="/assets/backstory/photo-1.png" rotate={-8} />
+                <Polaroid src="/assets/backstory/photo-1.webp" rotate={-8} />
               </div>
               <div className="absolute right-0 bottom-0">
-                <Polaroid src="/assets/backstory/photo-2.png" rotate={10} />
+                <Polaroid src="/assets/backstory/photo-2.webp" rotate={10} />
               </div>
             </div>
           </Reveal>

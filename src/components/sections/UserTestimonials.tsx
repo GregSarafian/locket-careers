@@ -57,6 +57,24 @@ function VideoCard({
   onHoverChange: (hovered: boolean) => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || inView) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [inView]);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -77,23 +95,26 @@ function VideoCard({
 
   return (
     <motion.div
+      ref={containerRef}
       onMouseEnter={() => onHoverChange(true)}
       onMouseLeave={() => onHoverChange(false)}
       animate={{ opacity: dim ? 0.4 : 1 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className="relative w-[200px] h-[400px] rounded-[16px] overflow-hidden bg-black/40 shrink-0"
     >
-      <video
-        ref={videoRef}
-        src={item.src}
-        poster={item.poster}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 size-full object-cover"
-      />
+      {inView && (
+        <video
+          ref={videoRef}
+          src={item.src}
+          poster={item.poster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
 
       {/* Inner stroke (1px, white @ 10%) sitting on top of the video */}
       <div
