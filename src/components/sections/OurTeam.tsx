@@ -14,10 +14,10 @@ export function OurTeam() {
             <InteractiveDottedMap />
           </div>
           <div className="p-6">
-            <p className="font-semibold text-[20px] leading-[26px] text-white/60">
+            <p className="font-semibold text-[20px] leading-[26px] text-white/60 text-center">
               Join a small team of 10, where everyone has high ownership and a massive impact on
               the product. Based in San Francisco with team members in Los Angeles, New York,
-              Austin, Toronto, and Argentina.
+              Austin, Toronto, Argentina, and Vietnam.
             </p>
           </div>
         </div>
