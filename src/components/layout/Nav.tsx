@@ -1,8 +1,8 @@
 const links = [
-  { label: 'Help Center', href: 'https://help.locketcamera.com' },
-  { label: 'Artists', href: 'https://locket.camera/artists' },
+  { label: 'Help Center', href: 'https://help.locketcamera.com', external: true },
+  { label: 'Artists', href: 'https://locket.camera/artists', external: true },
   { label: 'Press', href: 'mailto:press@locketcamera.com' },
-  { label: 'Download', href: 'https://locket.cam/download', active: true },
+  { label: 'Download', href: 'https://locket.camera', active: true },
 ];
 
 // Stacked progressive-blur layers. Each band has a stronger blur than the
@@ -91,6 +91,7 @@ export function Nav() {
             <li key={l.label} className={l.active ? 'ml-1' : ''}>
               <a
                 href={l.href}
+                {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className={[
                   'inline-flex items-center justify-center px-4 py-2 rounded-full',
                   'font-bold text-[17px] leading-[22px] tracking-[0.17px] whitespace-nowrap',
@@ -107,7 +108,7 @@ export function Nav() {
         </ul>
 
         <a
-          href="https://locket.cam/download"
+          href="https://locket.camera"
           className="md:hidden inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white font-bold text-[15px] transition-transform duration-200 ease-out active:scale-90"
         >
           Download
