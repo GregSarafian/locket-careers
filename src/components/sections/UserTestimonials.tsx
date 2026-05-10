@@ -2,48 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { testimonials, type Testimonial } from '../../data/testimonials';
 
-function ArrowUpIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M7 17L17 7M9 7h8v8"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function SpeakerOnIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M11 5L6 9H3v6h3l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function SpeakerOffIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M11 5L6 9H3v6h3l5 4V5zM16 9l5 5M21 9l-5 5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function VideoCard({
   item,
   isHovered,
@@ -58,6 +16,7 @@ function VideoCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [muted, setMuted] = useState(true);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -76,19 +35,26 @@ function VideoCard({
   }, [inView]);
 
   useEffect(() => {
+    if (!isHovered) {
+      setMuted(true);
+      const v = videoRef.current;
+      if (v) v.muted = true;
+    }
+  }, [isHovered]);
+
+  const toggleMute = () => {
     const v = videoRef.current;
-    if (!v) return;
-    v.muted = !isHovered;
-    if (isHovered) {
-      // play() returns a promise that may reject if browser blocks unmute.
+    const next = !muted;
+    setMuted(next);
+    if (v) {
+      v.muted = next;
       void v.play().catch(() => {
-        // If the browser blocks unmuted autoplay (no prior user gesture),
-        // fall back silently to muted playback.
         v.muted = true;
+        setMuted(true);
         void v.play().catch(() => {});
       });
     }
-  }, [isHovered]);
+  };
 
   const dim = isAnyHovered && !isHovered;
 
@@ -122,36 +88,64 @@ function VideoCard({
         aria-hidden
       />
 
-      {/* Hover controls (bottom-right) */}
+      {/* Hover controls */}
       <AnimatePresence>
         {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="absolute right-3 bottom-3 flex gap-2"
-          >
+          <>
+            {/* Centered mute/unmute toggle */}
+            <motion.button
+              type="button"
+              key="mute"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              whileTap={{ scale: 0.8 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              onClick={toggleMute}
+              data-no-emoji
+              aria-label={muted ? 'Unmute' : 'Mute'}
+              className="absolute left-3 bottom-3 size-10 rounded-full bg-[#777777]/50 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:bg-[#777777]/70 transition-colors shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+            >
+              <img
+                src={muted ? '/assets/tiktoks/unmute.svg' : '/assets/tiktoks/mute.svg'}
+                alt=""
+                aria-hidden
+                className="size-[22px]"
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
+            </motion.button>
+
+            {/* Bottom-right link to original TikTok */}
             {item.href && (
-              <a
+              <motion.a
+                key="tiktok"
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                whileTap={{ scale: 0.8 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
                 aria-label="Open original TikTok"
-                className="size-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/80 transition-colors"
-                onClick={(e) => e.stopPropagation()}
+                className="absolute right-3 bottom-3 size-10 rounded-full bg-[#777777]/50 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:bg-[#777777]/70 transition-colors shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMuted(true);
+                  const v = videoRef.current;
+                  if (v) v.muted = true;
+                }}
               >
-                <ArrowUpIcon />
-              </a>
+                <img
+                  src="/assets/tiktoks/upright.svg"
+                  alt=""
+                  aria-hidden
+                  className="size-[22px]"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+              </motion.a>
             )}
-            {/* Sound indicator — passive, not a toggle (hover already controls audio) */}
-            <div
-              aria-label="Audio on"
-              className="size-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white/80 pointer-events-none"
-            >
-              {isHovered ? <SpeakerOnIcon /> : <SpeakerOffIcon />}
-            </div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.div>

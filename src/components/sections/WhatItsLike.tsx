@@ -78,9 +78,10 @@ function AccordionRow({
 }) {
   const expandable = !!trait.body;
   return (
-    <div
+    <motion.div
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
+      whileTap={expandable ? { scale: 0.985 } : undefined}
       className={[
         'rounded-[24px] transition-colors transition-opacity duration-200',
         open ? 'bg-white/5' : 'bg-transparent',
@@ -114,7 +115,7 @@ function AccordionRow({
         </div>
         {expandable && <PlusMinusIcon open={open} />}
       </button>
-    </div>
+    </motion.div>
   );
 }
 
