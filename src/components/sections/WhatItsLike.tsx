@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 
 type PhotoCard = {
   src: string;
@@ -96,7 +95,7 @@ function AccordionRow({
         className="w-full flex items-start justify-between gap-4 pl-6 pr-4 py-4 text-left"
       >
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-[22px] leading-[28px] text-white/80">
+          <p className="font-bold text-[20px] leading-[26px] text-white/80">
             {trait.title}
           </p>
           <AnimatePresence initial={false}>
@@ -106,7 +105,7 @@ function AccordionRow({
                 animate={{ height: 'auto', opacity: 1, marginTop: 8 }}
                 exit={{ height: 0, opacity: 0, marginTop: 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="font-semibold text-[20px] leading-[25px] text-white/60 overflow-hidden"
+                className="font-semibold text-[20px] leading-[26px] text-white/60 overflow-hidden"
               >
                 {trait.body}
               </motion.p>
@@ -128,14 +127,11 @@ export function WhatItsLike() {
       <div className="max-w-[1080px] mx-auto flex flex-col md:flex-row gap-12 items-start">
         {/* Left column: heading + photo collage */}
         <div className="flex flex-col gap-6 shrink-0 md:max-w-[391px]">
-          <Reveal>
-            <h3 className="font-bold text-[28px] leading-tight text-white/80">
-              What's it like to work at Locket?
-            </h3>
-          </Reveal>
+          <h3 className="font-bold text-[28px] leading-tight text-white/80">
+            What's it like to work at Locket?
+          </h3>
 
-          <Reveal delay={0.1}>
-            <div className="flex items-end justify-center">
+          <div className="flex items-end justify-center">
               <div className="size-[200px] -mr-[74px]">
                 <motion.div
                   initial={{ rotate: -8 }}
@@ -175,11 +171,10 @@ export function WhatItsLike() {
                 </motion.div>
               </div>
             </div>
-          </Reveal>
         </div>
 
         {/* Right column: accordion */}
-        <Reveal delay={0.15} className="flex-1 min-w-0 w-full">
+        <div className="flex-1 min-w-0 w-full">
           <div className="flex flex-col">
             {traits.map((t, i) => (
               <AccordionRow
@@ -193,7 +188,7 @@ export function WhatItsLike() {
               />
             ))}
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

@@ -66,8 +66,8 @@ export function ExpandedPhoto({
         exit={{ opacity: 0, y: 8, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="text-white font-semibold text-[22px] leading-tight">{title}</div>
-        <div className="text-white/70 text-[16px] leading-tight mt-1">{subtitle}</div>
+        <div className="text-white font-semibold text-[20px] leading-tight">{title}</div>
+        <div className="text-white/60 text-[17px] leading-tight mt-1">{subtitle}</div>
       </motion.div>
     </motion.div>
   );

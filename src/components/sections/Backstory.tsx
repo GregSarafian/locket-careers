@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 
 const underlineVariants = {
   rest: {
@@ -68,19 +67,17 @@ export function Backstory() {
   return (
     <section className="px-6 md:px-[120px] py-10">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-10 items-center">
-        <Reveal className="w-full">
-          <div className="flex items-center gap-4 w-full">
-            <img src="/assets/backstory/line-left.svg" alt="" aria-hidden className="flex-1 h-2" />
-            <h3 className="font-bold text-[28px] leading-none text-white/80 whitespace-nowrap">
-              The Backstory
-            </h3>
-            <img src="/assets/backstory/line-right.svg" alt="" aria-hidden className="flex-1 h-2 -scale-x-100" />
-          </div>
-        </Reveal>
+        <div className="flex items-center gap-4 w-full">
+          <img src="/assets/backstory/line-left.svg" alt="" aria-hidden className="flex-1 h-2" />
+          <h3 className="font-bold text-[28px] leading-tight text-white/80 whitespace-nowrap">
+            The Backstory
+          </h3>
+          <img src="/assets/backstory/line-right.svg" alt="" aria-hidden className="flex-1 h-2 -scale-x-100" />
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center lg:items-start justify-center">
           {/* Left: stacked polaroids */}
-          <Reveal className="shrink-0">
+          <div className="shrink-0">
             <div className="relative w-[256px] h-[360px]">
               <div className="absolute left-0 top-0">
                 <Polaroid src="/assets/backstory/photo-1.webp" rotate={-8} />
@@ -89,12 +86,12 @@ export function Backstory() {
                 <Polaroid src="/assets/backstory/photo-2.webp" rotate={10} />
               </div>
             </div>
-          </Reveal>
+          </div>
 
           {/* Right: serif body + signature */}
-          <Reveal delay={0.1} className="max-w-[572px]">
+          <div className="max-w-[572px]">
             <div
-              className="font-serif text-[20px] leading-[25px] text-white/80 space-y-4"
+              className="font-serif text-[20px] leading-[26px] text-white/60 space-y-4"
               style={{
                 fontFamily:
                   '"New York", "Iowan Old Style", "Palatino Linotype", "Georgia", "Cambria", serif',
@@ -128,7 +125,7 @@ export function Backstory() {
               />
             </div>
 
-            <p className="mt-2 font-semibold text-[15px] leading-[20px] tracking-[0.26px] text-white/80">
+            <p className="mt-2 font-semibold text-[13px] leading-[18px] tracking-[0.26px] text-white/60">
               <motion.a
                 href="https://x.com/thefuturematt"
                 target="_blank"
@@ -149,7 +146,7 @@ export function Backstory() {
               </motion.a>
               , Locket Founder
             </p>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

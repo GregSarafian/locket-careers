@@ -1,26 +1,21 @@
-import { Stagger, staggerItem } from '../motion/Stagger';
 import { motion } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 import { press } from '../../data/press';
 
 export function Press() {
   return (
     <section className="px-6 md:px-[120px] py-10">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-8 items-start">
-        <Reveal>
-          <h3 className="font-bold text-[28px] leading-tight text-white/80">
-            Where can I read more about Locket?
-          </h3>
-        </Reveal>
+        <h3 className="font-bold text-[28px] leading-tight text-white/80">
+          Where can I read more about Locket?
+        </h3>
 
-        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full" stagger={0.05}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {press.map((p) => (
             <motion.a
               key={p.title + p.source}
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              variants={staggerItem}
               whileHover={{ y: -3 }}
               transition={{ duration: 0.3 }}
               className="group flex flex-col gap-4 items-stretch border-2 border-white/10 rounded-[16px] overflow-hidden hover:border-white/20 transition-colors"
@@ -42,7 +37,7 @@ export function Press() {
               </div>
             </motion.a>
           ))}
-        </Stagger>
+        </div>
       </div>
     </section>
   );

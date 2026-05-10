@@ -101,7 +101,7 @@ export function Hero() {
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
-          <p className="font-semibold text-[28px] leading-[34px] text-white/60">
+          <p className="font-semibold text-[28px] leading-tight text-white/60">
             Build the social network that loves you back
           </p>
         </Reveal>
