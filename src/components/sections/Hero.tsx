@@ -1,8 +1,5 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
-import { EmojiLayer, useFloatingEmojis } from '../motion/FloatingEmojis';
-import { ExpandedPhoto } from '../motion/ExpandedPhoto';
 
 // Card layout from Figma node 8:35.
 // Native canvas: 1245 x 550 (8 photos, 200x200 each, 16px black border, 40px radius).
@@ -36,15 +33,7 @@ const cards: Card[] = [
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;
 
-function PhotoCard({
-  src,
-  left,
-  top,
-  rotate,
-  index,
-  isExpanded,
-  onClick,
-}: Card & { index: number; isExpanded: boolean; onClick: () => void }) {
+function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) {
   return (
     <div
       className="absolute"
@@ -56,52 +45,42 @@ function PhotoCard({
         height: 'calc(200 / 1245 * 100cqw)',
       }}
     >
-      {!isExpanded && (
-        <motion.button
-          type="button"
-          layoutId={`hero-card-${index}`}
-          onClick={onClick}
-          aria-label="Expand photo"
-          className="block size-full cursor-pointer p-0 overflow-hidden bg-[#1a1a1a]"
-          style={{
-            borderWidth: 'calc(16 / 1245 * 100cqw)',
-            borderRadius: 'calc(40 / 1245 * 100cqw)',
-            borderColor: 'var(--color-bg)',
-            borderStyle: 'solid',
-            boxSizing: 'border-box',
-            willChange: 'transform',
-          }}
-          initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94 }}
-          animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
-          transition={{
-            duration: 0.9,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.05 * index,
-          }}
-          whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
-        >
-          <img
-            src={src}
-            alt=""
-            aria-hidden
-            loading="eager"
-            decoding="async"
-            className="block size-full object-cover"
-            draggable={false}
-          />
-        </motion.button>
-      )}
+      <motion.div
+        className="block size-full overflow-hidden bg-[#1a1a1a]"
+        style={{
+          borderWidth: 'calc(16 / 1245 * 100cqw)',
+          borderRadius: 'calc(40 / 1245 * 100cqw)',
+          borderColor: 'var(--color-bg)',
+          borderStyle: 'solid',
+          boxSizing: 'border-box',
+          willChange: 'transform',
+        }}
+        initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94 }}
+        animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
+        transition={{
+          duration: 0.9,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0.05 * index,
+        }}
+        whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
+      >
+        <img
+          src={src}
+          alt=""
+          aria-hidden
+          loading="eager"
+          decoding="async"
+          className="block size-full object-cover"
+          draggable={false}
+        />
+      </motion.div>
     </div>
   );
 }
 
 export function Hero() {
-  const { emojis, removeEmoji } = useFloatingEmojis();
-  const [expanded, setExpanded] = useState<number | null>(null);
-
   return (
     <section className="relative pt-6 md:pt-7 pb-16 md:pb-20 overflow-hidden">
-      <EmojiLayer onTop={false} emojis={emojis} onComplete={removeEmoji} />
       <div
         className="relative mx-auto z-10"
         style={{
@@ -111,16 +90,9 @@ export function Hero() {
         }}
       >
         {cards.map((c, i) => (
-          <PhotoCard
-            key={c.src}
-            {...c}
-            index={i}
-            isExpanded={expanded === i}
-            onClick={() => setExpanded(i)}
-          />
+          <PhotoCard key={c.src} {...c} index={i} />
         ))}
       </div>
-      <EmojiLayer onTop={true} emojis={emojis} onComplete={removeEmoji} />
 
       <div className="relative z-30 flex flex-col items-center justify-center gap-4 py-10 px-6 md:px-[120px] text-center">
         <Reveal delay={0.2}>
@@ -144,10 +116,10 @@ export function Hero() {
           >
             <span className="relative pb-1.5">
               Open Roles
-              <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+              <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current/20" />
               <motion.span
                 aria-hidden
-                className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+                className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current origin-center"
                 variants={{
                   rest: {
                     scaleX: 0,
@@ -174,19 +146,6 @@ export function Hero() {
           </motion.a>
         </Reveal>
       </div>
-
-      <AnimatePresence>
-        {expanded !== null && (
-          <ExpandedPhoto
-            key="expanded"
-            layoutId={`hero-card-${expanded}`}
-            src={cards[expanded].src}
-            title={cards[expanded].title}
-            subtitle={cards[expanded].subtitle}
-            onClose={() => setExpanded(null)}
-          />
-        )}
-      </AnimatePresence>
     </section>
   );
 }

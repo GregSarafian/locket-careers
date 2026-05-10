@@ -94,6 +94,7 @@ function RoleCard({
         type="button"
         onClick={expandable ? onToggle : undefined}
         aria-expanded={expandable ? expanded : undefined}
+        data-no-emoji
         className={[
           'w-full flex items-center justify-between gap-4 p-8 text-left',
           expandable ? 'cursor-pointer' : 'cursor-default',
