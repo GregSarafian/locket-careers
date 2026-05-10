@@ -24,6 +24,7 @@ export function ExpandedPhoto({
   return (
     <motion.div
       className="fixed inset-0 z-[60] flex flex-col items-center justify-center px-6"
+      data-no-emoji
       onClick={onClose}
     >
       <motion.div
@@ -62,8 +63,8 @@ export function ExpandedPhoto({
         className="relative z-10 mt-6 text-center pointer-events-none"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 8 }}
-        transition={{ duration: 0.3, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        exit={{ opacity: 0, y: 8, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="text-white font-semibold text-[22px] leading-tight">{title}</div>
         <div className="text-white/70 text-[16px] leading-tight mt-1">{subtitle}</div>

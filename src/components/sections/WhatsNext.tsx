@@ -25,10 +25,10 @@ export function WhatsNext() {
             >
               <span className="relative pb-1.5">
                 jobs@locketcamera.com
-                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current/20" />
                 <motion.span
                   aria-hidden
-                  className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+                  className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current origin-center"
                   variants={{
                     rest: {
                       scaleX: 0,

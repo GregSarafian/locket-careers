@@ -1,5 +1,6 @@
 import { Nav } from '../components/layout/Nav';
 import { Footer } from '../components/layout/Footer';
+import { GlobalClickEmojis } from '../components/motion/FloatingEmojis';
 import { Hero } from '../components/sections/Hero';
 import { HappierIntro } from '../components/sections/HappierIntro';
 import { AboutStats } from '../components/sections/AboutStats';
@@ -17,6 +18,7 @@ import { WhatsNext } from '../components/sections/WhatsNext';
 export default function Home() {
   return (
     <>
+      <GlobalClickEmojis />
       <Nav />
       <main>
         <Hero />

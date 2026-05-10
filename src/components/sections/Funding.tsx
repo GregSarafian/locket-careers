@@ -48,10 +48,10 @@ function InvestorLink({ name, href }: { name: string; href: string }) {
       className="relative inline-block pb-1 text-white/80 hover:text-white transition-colors duration-200"
     >
       {name}
-      <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+      <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-white/20" />
       <motion.span
         aria-hidden
-        className="absolute left-0 right-0 bottom-0 h-[2px] bg-white origin-center"
+        className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-white origin-center"
         variants={underlineVariants}
       />
     </motion.a>
@@ -72,10 +72,10 @@ function ReadMoreLink({ href }: { href: string }) {
     >
       <span className="relative pb-1">
         Read more here
-        <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/20" />
+        <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current/20" />
         <motion.span
           aria-hidden
-          className="absolute left-0 right-0 bottom-0 h-[2px] bg-current origin-center"
+          className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current origin-center"
           variants={underlineVariants}
         />
       </span>

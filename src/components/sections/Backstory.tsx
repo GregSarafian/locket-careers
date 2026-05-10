@@ -140,10 +140,10 @@ export function Backstory() {
                 className="relative inline-block pb-0.5 hover:text-white/60 transition-colors duration-200"
               >
                 Matt Moss
-                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[1px] bg-white/20" />
+                <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[1px] rounded-full bg-white/20" />
                 <motion.span
                   aria-hidden
-                  className="absolute left-0 right-0 bottom-0 h-[1px] bg-white/30 origin-center"
+                  className="absolute left-0 right-0 bottom-0 h-[1px] rounded-full bg-white/30 origin-center"
                   variants={underlineVariants}
                 />
               </motion.a>
