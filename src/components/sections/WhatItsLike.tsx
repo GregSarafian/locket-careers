@@ -103,9 +103,9 @@ function AccordionRow({
           <AnimatePresence initial={false}>
             {open && trait.body && (
               <motion.p
-                initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                animate={{ height: 'auto', opacity: 1, marginTop: 8 }}
-                exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                initial={{ height: 0, opacity: 0, marginTop: 0, filter: 'blur(6px)' }}
+                animate={{ height: 'auto', opacity: 1, marginTop: 8, filter: 'blur(0px)' }}
+                exit={{ height: 0, opacity: 0, marginTop: 0, filter: 'blur(6px)' }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="font-semibold text-[20px] leading-[26px] text-white/60 overflow-hidden"
               >

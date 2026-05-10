@@ -46,7 +46,7 @@ export function Challenges() {
               initial={{ rotate: c.rotate }}
               animate={{ rotate: c.rotate }}
               whileHover={{ rotate: c.rotate * 0.4, scale: 1.01 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-3 items-start p-6 rounded-[32px] bg-gradient-to-b from-white/[0.03] to-white/[0.05]"
             >
               <img src={c.icon} alt="" aria-hidden="true" width={42} height={42} className="opacity-70" />

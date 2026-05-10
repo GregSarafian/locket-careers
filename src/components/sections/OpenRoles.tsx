@@ -134,9 +134,9 @@ function RoleCard({
       <AnimatePresence initial={false}>
         {expandable && expanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ height: 0, opacity: 0, filter: 'blur(6px)' }}
+            animate={{ height: 'auto', opacity: 1, filter: 'blur(0px)' }}
+            exit={{ height: 0, opacity: 0, filter: 'blur(6px)' }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >

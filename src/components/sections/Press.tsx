@@ -10,12 +10,13 @@ export function Press() {
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {press.map((p) => (
+          {press.map((p, i) => (
             <motion.a
               key={p.title + p.source}
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ rotate: i % 2 === 0 ? -2 : 2, scale: 1.02, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.96 }}
               className="group flex flex-col gap-4 items-stretch bg-white/10 rounded-[16px] overflow-hidden hover:bg-white/20 transition-colors"
             >

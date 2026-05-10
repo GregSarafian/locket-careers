@@ -13,8 +13,8 @@ export function HappierIntro() {
             draggable={false}
             loading="lazy"
             decoding="async"
-            initial={{ opacity: 0, x: -60, rotate: 8 }}
-            whileInView={{ opacity: 1, x: 0, rotate: 16 }}
+            initial={{ opacity: 0, x: -60, rotate: 8, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, x: 0, rotate: 16, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute left-[-280px] top-[60px] w-[360px] origin-top pointer-events-none select-none"
@@ -28,8 +28,8 @@ export function HappierIntro() {
             draggable={false}
             loading="lazy"
             decoding="async"
-            initial={{ opacity: 0, x: 60, rotate: -8 }}
-            whileInView={{ opacity: 1, x: 0, rotate: -16 }}
+            initial={{ opacity: 0, x: 60, rotate: -8, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, x: 0, rotate: -16, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute right-[-280px] top-[60px] w-[360px] origin-top pointer-events-none select-none"

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
 
@@ -33,7 +34,17 @@ const cards: Card[] = [
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;
 
-function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) {
+// Animation order: bottom-up (cards with the largest `top` value reveal first).
+const bottomUpOrder = (() => {
+  const sorted = [...cards].map((c, i) => ({ i, top: c.top })).sort((a, b) => b.top - a.top);
+  const rank = new Array<number>(cards.length);
+  sorted.forEach((s, order) => {
+    rank[s.i] = order;
+  });
+  return rank;
+})();
+
+function PhotoCard({ src, left, top, rotate, index, ready }: Card & { index: number; ready: boolean }) {
   return (
     <div
       className="absolute"
@@ -53,16 +64,16 @@ function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) 
           borderColor: 'var(--color-bg)',
           borderStyle: 'solid',
           boxSizing: 'border-box',
-          willChange: 'transform',
+          willChange: 'transform, filter',
         }}
-        initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94 }}
-        animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
+        initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94, filter: 'blur(8px)' }}
+        animate={ready ? { opacity: 1, y: 0, rotate, scale: 1, filter: 'blur(0px)' } : undefined}
         transition={{
           duration: 0.9,
           ease: [0.22, 1, 0.36, 1],
-          delay: 0.05 * index,
+          delay: 0.05 * bottomUpOrder[index],
         }}
-        whileHover={{ rotate: rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
+        whileHover={{ rotate: rotate === 0 ? 4 : rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
       >
         <img
           src={src}
@@ -79,6 +90,28 @@ function PhotoCard({ src, left, top, rotate, index }: Card & { index: number }) 
 }
 
 export function Hero() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      cards.map(
+        (c) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = c.src;
+          }),
+      ),
+    ).then(() => {
+      if (!cancelled) setReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="relative pt-6 md:pt-7 pb-16 md:pb-20 overflow-hidden">
       <div
@@ -90,7 +123,7 @@ export function Hero() {
         }}
       >
         {cards.map((c, i) => (
-          <PhotoCard key={c.src} {...c} index={i} />
+          <PhotoCard key={c.src} {...c} index={i} ready={ready} />
         ))}
       </div>
 
