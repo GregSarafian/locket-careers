@@ -29,7 +29,7 @@ export const press: PressItem[] = [
     logo: '/assets/press/logos/bi.svg',
     logoHeight: 12,
     title: "Locket Launches Weekly 'Photo Dump' Feature, Rollcall",
-    href: '#',
+    href: 'https://www.businessinsider.com/locket-widget-app-photo-dump-feature-instagram-gen-alpha-teens-2025-10',
     image: '/assets/press/press-3.webp',
   },
   {

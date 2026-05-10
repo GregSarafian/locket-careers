@@ -45,19 +45,20 @@ const traits: Trait[] = [
 
 function PlusMinusIcon({ open }: { open: boolean }) {
   return (
-    <span
+    <motion.span
       className="relative inline-block w-[22px] h-[22px] text-[var(--color-accent)] shrink-0"
       aria-hidden
+      animate={{ rotate: open ? 90 : 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Horizontal bar (always visible) */}
-      <span className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px] rounded-full bg-current" />
-      {/* Vertical bar (rotates away when open) */}
+      {/* Horizontal bar fades out so the vertical bar (rotated 90°) becomes the minus. */}
       <motion.span
-        animate={{ rotate: open ? 90 : 0, opacity: open ? 0 : 1 }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 rounded-full bg-current"
+        animate={{ opacity: open ? 0 : 1 }}
+        transition={{ duration: 0.2, ease: 'linear', delay: 0.1 }}
+        className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px] rounded-full bg-current"
       />
-    </span>
+      <span className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 rounded-full bg-current" />
+    </motion.span>
   );
 }
 

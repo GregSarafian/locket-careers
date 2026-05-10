@@ -94,6 +94,9 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+            <p className="font-semibold text-[15px] text-white/40">
+              © {new Date().getFullYear()} Locket Labs, Inc.
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-x-3 gap-y-8 text-[17px] text-center">

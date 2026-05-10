@@ -66,16 +66,7 @@ function Polaroid({
 export function Backstory() {
   return (
     <section className="px-6 md:px-[120px] py-10">
-      <div className="max-w-[1080px] mx-auto flex flex-col gap-10 items-center">
-        <div className="flex items-center gap-4 w-full">
-          <img src="/assets/backstory/line-left.svg" alt="" aria-hidden className="flex-1 h-2" />
-          <h3 className="font-bold text-[28px] leading-tight text-white/80 whitespace-nowrap">
-            The Backstory
-          </h3>
-          <img src="/assets/backstory/line-right.svg" alt="" aria-hidden className="flex-1 h-2 -scale-x-100" />
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center lg:items-start justify-center">
+      <div className="max-w-[1080px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-20 items-center lg:items-start justify-center">
           {/* Left: stacked polaroids */}
           <div className="shrink-0">
             <div className="relative w-[256px] h-[360px]">
@@ -88,15 +79,13 @@ export function Backstory() {
             </div>
           </div>
 
-          {/* Right: serif body + signature */}
-          <div className="max-w-[572px]">
-            <div
-              className="font-serif text-[20px] leading-[26px] text-white/60 space-y-4"
-              style={{
-                fontFamily:
-                  '"New York", "Iowan Old Style", "Palatino Linotype", "Georgia", "Cambria", serif',
-              }}
-            >
+          {/* Right: heading + body + signature */}
+          <div className="max-w-[572px] flex flex-col gap-6">
+            <h2 className="font-bold text-[28px] leading-tight text-white/80">
+              The Backstory
+            </h2>
+
+            <div className="font-semibold text-[20px] leading-[26px] text-white/60 space-y-[1.25em]">
               <p>
                 I built Locket as a birthday present for my girlfriend Ava back in 2022. She was
                 heading back to school at UCSB, so we were about to go long distance. I wanted to
@@ -147,7 +136,6 @@ export function Backstory() {
               , Locket Founder
             </p>
           </div>
-        </div>
       </div>
     </section>
   );

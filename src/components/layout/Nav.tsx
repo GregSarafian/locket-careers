@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
 const links = [
   { label: 'Help Center', href: 'https://help.locketcamera.com', external: true },
   { label: 'Artists', href: 'https://locket.camera/artists', external: true },
@@ -67,6 +70,8 @@ function NavBackdrop() {
 }
 
 export function Nav() {
+  const [qrOpen, setQrOpen] = useState(false);
+
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <NavBackdrop />
@@ -87,24 +92,86 @@ export function Nav() {
         </a>
 
         <ul className="hidden md:flex items-center gap-1">
-          {links.map((l) => (
-            <li key={l.label} className={l.active ? 'ml-1' : ''}>
-              <a
-                href={l.href}
-                {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className={[
-                  'inline-flex items-center justify-center px-4 py-2 rounded-full',
-                  'font-bold text-[17px] leading-[22px] tracking-[0.17px] whitespace-nowrap',
-                  'transition-all duration-200 ease-out active:scale-90',
-                  l.active
-                    ? 'bg-white/10 text-white hover:bg-white/15'
-                    : 'text-white/80 hover:text-white hover:bg-white/10',
-                ].join(' ')}
-              >
-                {l.label}
-              </a>
+          {links.map((l) => {
+            const baseClass = [
+              'inline-flex items-center justify-center px-4 py-2 rounded-full',
+              'font-bold text-[17px] leading-[22px] tracking-[0.17px] whitespace-nowrap',
+              'transition-all duration-200 ease-out',
+              l.active
+                ? 'bg-white/10 text-white hover:bg-white/15 cursor-default'
+                : 'text-white/80 hover:text-white hover:bg-white/10 active:scale-90',
+            ].join(' ');
+            return (
+            <li
+              key={l.label}
+              className={`${l.active ? 'ml-1 relative' : ''}`}
+              {...(l.active
+                ? {
+                    onMouseEnter: () => setQrOpen(true),
+                    onMouseLeave: () => setQrOpen(false),
+                  }
+                : {})}
+            >
+              {l.active ? (
+                <span className={baseClass}>{l.label}</span>
+              ) : (
+                <a
+                  href={l.href}
+                  {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  className={baseClass}
+                >
+                  {l.label}
+                </a>
+              )}
+
+              {l.active && (
+                <AnimatePresence>
+                  {qrOpen && (
+                    <motion.div
+                      key="qr"
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute right-0 top-full pt-3"
+                    >
+                      <div className="bg-white rounded-[26px] p-5 flex flex-col items-center gap-[13px] shadow-[0_12px_40px_rgba(0,0,0,0.45)] select-none">
+                        <div className="relative w-[211px] h-[211px]">
+                          <img
+                            src="/assets/qr.svg"
+                            alt=""
+                            aria-hidden
+                            width={211}
+                            height={211}
+                            draggable={false}
+                            className="block w-full h-full"
+                          />
+                          <img
+                            src="/assets/happier/app-icon.svg"
+                            alt=""
+                            aria-hidden
+                            draggable={false}
+                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[38px] h-[38px]"
+                          />
+                        </div>
+                        <p className="flex items-center gap-2 font-bold text-[19px] leading-[24px] text-[#1a1200] whitespace-nowrap">
+                          <img
+                            src="/assets/cam.svg"
+                            alt=""
+                            aria-hidden
+                            draggable={false}
+                            className="w-6 h-6"
+                          />
+                          Scan to download!
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </li>
-          ))}
+            );
+          })}
         </ul>
 
         <a
