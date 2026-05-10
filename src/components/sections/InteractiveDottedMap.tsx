@@ -198,9 +198,9 @@ export function InteractiveDottedMap() {
               top: `${hovered.yPct}%`,
               transformOrigin: '50% calc(100% + 10px)',
             }}
-            initial={{ opacity: 0, scale: 0, x: '-50%', y: 'calc(-100% - 10px)' }}
-            animate={{ opacity: 1, scale: 1, x: '-50%', y: 'calc(-100% - 10px)' }}
-            exit={{ opacity: 0, scale: 0, x: '-50%', y: 'calc(-100% - 10px)' }}
+            initial={{ opacity: 0, scale: 0, x: '-50%', y: 'calc(-100% - 10px)', filter: 'blur(6px)' }}
+            animate={{ opacity: 1, scale: 1, x: '-50%', y: 'calc(-100% - 10px)', filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 0, x: '-50%', y: 'calc(-100% - 10px)', filter: 'blur(6px)' }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
           >
             {hovered.label}

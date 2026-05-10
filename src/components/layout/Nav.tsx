@@ -5,6 +5,7 @@ const links = [
   { label: 'Help Center', href: 'https://help.locketcamera.com', external: true },
   { label: 'Artists', href: 'https://locket.camera/artists', external: true },
   { label: 'Press', href: 'mailto:press@locketcamera.com' },
+  { label: 'Brand', href: 'https://locket.camera/brand', external: true },
   { label: 'Download', href: 'https://locket.camera', active: true },
 ];
 
@@ -129,10 +130,10 @@ export function Nav() {
                   {qrOpen && (
                     <motion.div
                       key="qr"
-                      initial={{ opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      initial={{ opacity: 0, y: -6, filter: 'blur(12px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, y: -6, filter: 'blur(12px)' }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                       className="absolute right-0 top-full pt-3"
                     >
                       <div className="bg-white rounded-[26px] p-5 flex flex-col items-center gap-[13px] shadow-[0_12px_40px_rgba(0,0,0,0.45)] select-none">
