@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 
 type Investor = { name: string; href: string };
 
@@ -90,23 +89,19 @@ export function Funding() {
   return (
     <section className="px-6 md:px-[120px] py-10">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6 items-start text-white/80">
-        <Reveal>
-          <h3 className="font-bold text-[28px] leading-tight">Has Locket raised money?</h3>
-        </Reveal>
+        <h3 className="font-bold text-[28px] leading-tight">Has Locket raised money?</h3>
 
-        <Reveal delay={0.05}>
-          <p className="font-semibold text-[20px] leading-[32px]">
-            Yes! We've been lucky to partner with some of the best people in social, including{' '}
-            {investors.map((inv, i) => (
-              <span key={inv.name}>
-                <InvestorLink name={inv.name} href={inv.href} />
-                {i < investors.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-            , and many more. To date, Locket has raised $12.5M in funding.{' '}
-            <ReadMoreLink href={READ_MORE} />
-          </p>
-        </Reveal>
+        <p className="font-semibold text-[20px] leading-[26px] text-white/60">
+          Yes! We've been lucky to partner with some of the best people in social, including{' '}
+          {investors.map((inv, i) => (
+            <span key={inv.name}>
+              <InvestorLink name={inv.name} href={inv.href} />
+              {i < investors.length - 1 ? ', ' : ''}
+            </span>
+          ))}
+          , and many more. To date, Locket has raised $12.5M in funding.{' '}
+          <ReadMoreLink href={READ_MORE} />
+        </p>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 import { testimonials, type Testimonial } from '../../data/testimonials';
 
 function ArrowUpIcon() {
@@ -165,26 +164,22 @@ export function UserTestimonials() {
   return (
     <section className="py-10">
       <div className="max-w-[1080px] mx-auto px-6 md:px-[120px]">
-        <Reveal>
-          <h3 className="font-bold text-[28px] leading-tight text-white/80 text-center">
-            What are users saying?
-          </h3>
-        </Reveal>
+        <h3 className="font-bold text-[28px] leading-tight text-white/80 text-center">
+          What are users saying?
+        </h3>
       </div>
 
-      <Reveal delay={0.05}>
-        <div className="mt-6 flex gap-6 items-start justify-center px-6 overflow-x-auto">
-          {testimonials.map((t, i) => (
-            <VideoCard
-              key={t.src}
-              item={t}
-              isHovered={hoveredIndex === i}
-              isAnyHovered={hoveredIndex !== null}
-              onHoverChange={(hovered) => setHoveredIndex(hovered ? i : null)}
-            />
-          ))}
-        </div>
-      </Reveal>
+      <div className="mt-6 flex gap-6 items-start justify-center px-6 overflow-x-auto">
+        {testimonials.map((t, i) => (
+          <VideoCard
+            key={t.src}
+            item={t}
+            isHovered={hoveredIndex === i}
+            isAnyHovered={hoveredIndex !== null}
+            onHoverChange={(hovered) => setHoveredIndex(hovered ? i : null)}
+          />
+        ))}
+      </div>
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { roles, type Role } from '../../data/roles';
-import { Reveal } from '../motion/Reveal';
 
 
 function PlusMinusIcon({ open }: { open: boolean }) {
@@ -38,7 +37,7 @@ function renderInline(text: string): React.ReactNode {
 function RoleBody({ role }: { role: Role }) {
   if (!role.body) return null;
   return (
-    <div className="font-semibold text-[17px] leading-snug text-white/80 space-y-4">
+    <div className="font-semibold text-[17px] leading-[26px] text-white/60 space-y-4">
       {role.body.map((block, i) => {
         if (block.kind === 'p') {
           return <p key={i}>{renderInline(block.text)}</p>;
@@ -157,9 +156,7 @@ export function OpenRoles() {
   return (
     <section id="open-roles" className="px-6 md:px-[120px] py-10 scroll-mt-[140px]">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6">
-        <Reveal>
-          <h3 className="font-bold text-[28px] leading-tight text-white/80">Open Roles</h3>
-        </Reveal>
+        <h3 className="font-bold text-[28px] leading-tight text-white/80">Open Roles</h3>
 
         <div className="flex flex-col gap-6">
           {roles.map((r) => (
