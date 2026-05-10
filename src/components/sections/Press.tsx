@@ -4,8 +4,8 @@ import { press } from '../../data/press';
 export function Press() {
   return (
     <section className="px-6 md:px-[120px] py-10">
-      <div className="max-w-[1080px] mx-auto flex flex-col gap-8 items-start">
-        <h3 className="font-bold text-[28px] leading-tight text-white/80">
+      <div className="max-w-[1080px] mx-auto flex flex-col gap-8 items-stretch">
+        <h3 className="font-bold text-[28px] leading-tight text-white/80 text-center">
           Where can I read more about Locket?
         </h3>
 
@@ -16,9 +16,8 @@ export function Press() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.3 }}
-              className="group flex flex-col gap-4 items-stretch border-2 border-white/10 rounded-[16px] overflow-hidden hover:border-white/20 transition-colors"
+              whileTap={{ scale: 0.96 }}
+              className="group flex flex-col gap-4 items-stretch bg-white/10 rounded-[16px] overflow-hidden hover:bg-white/20 transition-colors"
             >
               <div className="h-[182px] w-full overflow-hidden">
                 <img

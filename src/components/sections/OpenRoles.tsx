@@ -66,9 +66,8 @@ function ApplyPill({ href, children = 'Apply' }: { href: string; children?: Reac
   return (
     <motion.a
       href={href}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.97 }}
-      className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:bg-white/15 transition-colors"
+      whileTap={{ scale: 0.8 }}
+      className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white/80 font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:text-white transition-colors"
       onClick={(e) => e.stopPropagation()}
     >
       {children}
@@ -89,10 +88,8 @@ function RoleCard({
 
   return (
     <div className="rounded-[32px] bg-white/5 overflow-hidden">
-      <button
-        type="button"
+      <div
         onClick={expandable ? onToggle : undefined}
-        aria-expanded={expandable ? expanded : undefined}
         data-no-emoji
         className={[
           'w-full flex items-center justify-between gap-4 p-8 text-left',
@@ -108,22 +105,25 @@ function RoleCard({
           </span>
         </div>
 
-        {expandable ? (
-          <span
-            className="size-[38px] flex items-center justify-center rounded-full border-[3px] border-white/10 shrink-0"
-            aria-hidden
-          >
-            <PlusMinusIcon open={expanded} />
-          </span>
-        ) : (
-          <div className="flex items-center gap-6 shrink-0">
-            <span className="font-bold text-[17px] leading-[22px] tracking-[0.17px] text-white">
-              Details
-            </span>
-            <ApplyPill href={role.applyUrl} />
-          </div>
-        )}
-      </button>
+        <div className="flex items-center gap-3 shrink-0">
+          {expandable && (
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.8 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggle();
+              }}
+              aria-expanded={expanded}
+              aria-label={expanded ? 'Collapse role' : 'Expand role'}
+              className="size-[38px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/15 transition-colors"
+            >
+              <PlusMinusIcon open={expanded} />
+            </motion.button>
+          )}
+          <ApplyPill href={role.applyUrl} />
+        </div>
+      </div>
 
       <AnimatePresence initial={false}>
         {expandable && expanded && (

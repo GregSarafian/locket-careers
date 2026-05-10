@@ -24,7 +24,7 @@ export function AboutStats() {
               transition={{ duration: 0.3 }}
               className="flex-1 min-w-[200px] h-[160px] p-10 rounded-[40px] flex flex-col items-center justify-center gap-2 bg-gradient-to-b from-white/[0.03] to-white/[0.05] text-white/80"
             >
-              <div className="font-bold text-[40px] leading-tight">{s.value}</div>
+              <div className="font-bold text-[32px] leading-tight whitespace-nowrap">{s.value}</div>
               <div className="font-bold text-[20px] leading-[26px]">{s.label}</div>
             </motion.div>
           ))}

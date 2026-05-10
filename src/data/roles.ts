@@ -16,7 +16,7 @@ export const roles: Role[] = [
   {
     slug: 'backend-engineer',
     title: 'Backend Engineer',
-    location: 'Remote or Hybrid',
+    location: 'Product',
     applyUrl: `${APPLY_EMAIL}?subject=Backend%20Engineer`,
     body: [
       {
@@ -71,7 +71,7 @@ export const roles: Role[] = [
   {
     slug: 'monetization-lead',
     title: 'Monetization Lead',
-    location: 'Remote or Hybrid',
+    location: 'Operations',
     applyUrl: `${APPLY_EMAIL}?subject=Monetization%20Lead`,
     body: [
       {
@@ -113,7 +113,7 @@ export const roles: Role[] = [
   {
     slug: 'creator-socials-lead',
     title: 'Creator & Socials Lead',
-    location: 'Remote or Hybrid',
+    location: 'Marketing',
     applyUrl: `${APPLY_EMAIL}?subject=Creator%20%26%20Socials%20Lead`,
     body: [
       {
