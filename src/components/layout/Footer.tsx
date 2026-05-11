@@ -124,7 +124,7 @@ export function Footer() {
             aria-hidden
             className="font-black tracking-[0.01em] leading-none whitespace-nowrap select-none"
             style={{
-              fontSize: 'clamp(40px, 10cqw, 120px)',
+              fontSize: 'clamp(24px, 10cqw, 120px)',
               backgroundImage:
                 'linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
               WebkitBackgroundClip: 'text',
