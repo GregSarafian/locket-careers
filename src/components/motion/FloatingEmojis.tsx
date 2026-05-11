@@ -35,11 +35,13 @@ export function GlobalClickEmojis() {
 
   useEffect(() => {
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const mobileMql = window.matchMedia?.('(max-width: 767px)');
 
     let nextId = 0;
     const recentEmojis: string[] = [];
 
     const handleClick = (e: MouseEvent) => {
+      if (mobileMql?.matches) return;
       if (isSuppressedClick(e.target)) return;
 
       const choices = EMOJIS.filter((em) => !recentEmojis.includes(em));

@@ -1,5 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+function getMobileStoreUrl() {
+  if (typeof navigator === 'undefined') return 'https://locket.camera';
+  const ua = navigator.userAgent || '';
+  if (/android/i.test(ua)) {
+    return 'https://play.google.com/store/apps/details?id=com.locket.Locket';
+  }
+  if (/iPad|iPhone|iPod/.test(ua)) {
+    return 'https://apps.apple.com/app/locket-widget/id1600373668';
+  }
+  return 'https://locket.camera';
+}
 
 const links = [
   { label: 'Help Center', href: 'https://help.locketcamera.com', external: true },
@@ -36,7 +48,7 @@ function NavBackdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 h-[140px] -z-10"
+      className="pointer-events-none absolute inset-x-0 top-0 h-[100px] md:h-[140px] -z-10"
     >
       {blurLayers.map((layer, i) => (
         <div
@@ -72,6 +84,25 @@ function NavBackdrop() {
 
 export function Nav() {
   const [qrOpen, setQrOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    function handlePointer(e: PointerEvent) {
+      const target = e.target as Node;
+      if (
+        mobileMenuRef.current?.contains(target) ||
+        hamburgerRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setMobileOpen(false);
+    }
+    document.addEventListener('pointerdown', handlePointer);
+    return () => document.removeEventListener('pointerdown', handlePointer);
+  }, [mobileOpen]);
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -175,12 +206,58 @@ export function Nav() {
           })}
         </ul>
 
-        <a
-          href="https://locket.camera"
-          className="md:hidden inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white font-bold text-[15px] transition-transform duration-200 ease-out active:scale-90"
-        >
-          Download
-        </a>
+        <div className="md:hidden relative">
+          <button
+            ref={hamburgerRef}
+            type="button"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((o) => !o)}
+            className="inline-flex items-center justify-center w-11 h-11 rounded-full text-white transition-transform duration-200 ease-out active:scale-90"
+          >
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
+              <path d="M5 10h18M5 18h18" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <AnimatePresence>
+            {mobileOpen && (
+              <motion.div
+                key="mobile-menu"
+                ref={mobileMenuRef}
+                initial={{ opacity: 0, scale: 0.5, filter: 'blur(28px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 0.5, filter: 'blur(28px)' }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: 'top right' }}
+                className="absolute right-0 top-0 w-[160px] rounded-[26px] bg-white/[0.06] backdrop-blur-[12px] ring-1 ring-inset ring-white/15 p-2 shadow-[0_12px_40px_rgba(0,0,0,0.55)] flex flex-col items-stretch gap-1"
+              >
+                {links.map((l) => {
+                  const isDownload = l.active;
+                  const href = isDownload ? getMobileStoreUrl() : l.href;
+                  const external = isDownload ? true : l.external;
+                  const className = [
+                    'inline-flex items-center justify-center px-5 py-3 rounded-full',
+                    'font-bold text-[17px] leading-[22px] text-white whitespace-nowrap',
+                    'transition-transform duration-200 ease-out active:scale-95',
+                    isDownload ? 'bg-white/10 hover:bg-white/15' : 'hover:bg-white/5',
+                  ].join(' ');
+                  return (
+                    <a
+                      key={l.label}
+                      href={href}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      onClick={() => setMobileOpen(false)}
+                      className={className}
+                    >
+                      {l.label}
+                    </a>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </nav>
     </header>
   );
