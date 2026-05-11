@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { press } from '../../data/press';
+import { selectionHaptic } from '../../lib/haptics';
 
 export function Press() {
   return (
@@ -16,6 +17,7 @@ export function Press() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => selectionHaptic()}
               whileHover={{ rotate: i % 2 === 0 ? -2 : 2, scale: 1.02, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.96 }}
               className="group flex flex-col gap-4 items-stretch bg-white/10 rounded-[16px] overflow-hidden hover:bg-white/20 transition-colors"

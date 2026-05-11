@@ -43,9 +43,9 @@ function PerkCard({
         <AnimatePresence initial={false}>
           {expanded && (
             <motion.div
-              initial={{ height: 0, opacity: 0, marginTop: 0 }}
-              animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
-              exit={{ height: 0, opacity: 0, marginTop: 0 }}
+              initial={{ height: 0, opacity: 0, marginTop: 0, filter: 'blur(6px)' }}
+              animate={{ height: 'auto', opacity: 1, marginTop: 16, filter: 'blur(0px)' }}
+              exit={{ height: 0, opacity: 0, marginTop: 0, filter: 'blur(6px)' }}
               transition={{ duration: 0.3, ease }}
               className="overflow-hidden"
             >
@@ -75,7 +75,7 @@ function PerkCard({
           </h4>
           <motion.p
             className="absolute top-full left-0 right-0 mt-2 font-semibold text-[17px] leading-[22px] text-white/60"
-            animate={{ opacity: hovered ? 1 : 0 }}
+            animate={{ opacity: hovered ? 1 : 0, filter: hovered ? 'blur(0px)' : 'blur(6px)' }}
             transition={{ duration: 0.4, ease }}
           >
             {p.body}
