@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { press } from '../../data/press';
+import { BlurhashImage } from '../motion/Blurhash';
 import { selectionHaptic } from '../../lib/haptics';
 
 export function Press() {
@@ -22,14 +23,14 @@ export function Press() {
               whileTap={{ scale: 0.96 }}
               className="group flex flex-col gap-4 items-stretch bg-white/10 rounded-[16px] overflow-hidden hover:bg-white/20 transition-colors"
             >
-              <div className="h-[182px] w-full overflow-hidden">
-                <img
+              <div className="relative h-[182px] w-full overflow-hidden">
+                <BlurhashImage
                   src={p.image}
                   alt=""
                   aria-hidden
                   loading="lazy"
                   decoding="async"
-                  className="block size-full object-cover"
+                  className="absolute inset-0 block size-full object-cover"
                   draggable={false}
                 />
               </div>

@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { testimonials, type Testimonial } from '../../data/testimonials';
+import { BlurhashVideo, BlurhashPlaceholder } from '../motion/Blurhash';
 import { selectionHaptic } from '../../lib/haptics';
 
 const CARD_WIDTH = 200;
@@ -89,9 +90,10 @@ function VideoCard({
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className="relative w-[200px] h-[400px] rounded-[16px] overflow-hidden bg-black/40 shrink-0"
     >
+      {!inView && <BlurhashPlaceholder src={item.src} />}
       {inView && (
-        <video
-          ref={videoRef}
+        <BlurhashVideo
+          videoRef={videoRef}
           src={item.src}
           poster={item.poster}
           autoPlay

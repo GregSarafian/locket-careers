@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { BlurhashImage } from './Blurhash';
 
 export const expandSpring = { type: 'spring' as const, stiffness: 170, damping: 22, mass: 1 };
 
@@ -38,7 +39,7 @@ export function ExpandedPhoto({
       <motion.div
         layoutId={layoutId}
         onClick={(e) => e.stopPropagation()}
-        className="relative z-10 overflow-hidden bg-[#1a1a1a]"
+        className="relative z-10 overflow-hidden bg-[#1a1a1a] isolate"
         style={{
           width: size,
           height: size,
@@ -52,10 +53,10 @@ export function ExpandedPhoto({
         }}
         transition={expandSpring}
       >
-        <img
+        <BlurhashImage
           src={src}
           alt={title}
-          className="block size-full object-cover"
+          className="absolute inset-0 block size-full object-cover"
           draggable={false}
         />
       </motion.div>

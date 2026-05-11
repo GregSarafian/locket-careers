@@ -1,4 +1,8 @@
 import { motion } from 'framer-motion';
+import { BlurhashImage } from '../motion/Blurhash';
+
+const phoneMask =
+  'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)';
 
 export function HappierIntro() {
   return (
@@ -7,76 +11,92 @@ export function HappierIntro() {
         {/* Mobile-only phone collage above the heading; phones bleed off-screen
             and extend down behind the text, faded by a mask. */}
         <div className="lg:hidden relative h-[260px] -mx-2 mb-8 pointer-events-none select-none">
-          <motion.img
-            src="/assets/happier/phone-left.webp"
-            alt=""
-            aria-hidden
-            draggable={false}
-            loading="lazy"
-            decoding="async"
+          <motion.div
             initial={{ opacity: 0, x: -40, rotate: 0, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, x: 0, rotate: 12, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="absolute left-[-100px] top-0 w-[280px] origin-top"
             style={{
-              WebkitMaskImage:
-                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
-              maskImage:
-                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+              aspectRatio: '30 / 64',
+              WebkitMaskImage: phoneMask,
+              maskImage: phoneMask,
             }}
-          />
-          <motion.img
-            src="/assets/happier/phone-right.webp"
-            alt=""
-            aria-hidden
-            draggable={false}
-            loading="lazy"
-            decoding="async"
+          >
+            <BlurhashImage
+              src="/assets/happier/phone-left.webp"
+              alt=""
+              aria-hidden
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-auto"
+            />
+          </motion.div>
+          <motion.div
             initial={{ opacity: 0, x: 40, rotate: 0, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, x: 0, rotate: -12, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="absolute right-[-100px] top-[30px] w-[280px] origin-top"
             style={{
-              WebkitMaskImage:
-                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
-              maskImage:
-                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+              aspectRatio: '30 / 64',
+              WebkitMaskImage: phoneMask,
+              maskImage: phoneMask,
             }}
-          />
+          >
+            <BlurhashImage
+              src="/assets/happier/phone-right.webp"
+              alt=""
+              aria-hidden
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-auto"
+            />
+          </motion.div>
         </div>
 
         <div className="relative p-8 md:p-[60px]">
           {/* Left iPhone mockup, decorative — bleeds beyond the card (desktop only) */}
-          <motion.img
-            src="/assets/happier/phone-left.webp"
-            alt=""
-            aria-hidden
-            draggable={false}
-            loading="lazy"
-            decoding="async"
+          <motion.div
             initial={{ opacity: 0, x: -60, rotate: 8, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, x: 0, rotate: 16, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute left-[-280px] top-[60px] w-[360px] origin-top pointer-events-none select-none"
-          />
+            style={{ aspectRatio: '30 / 64' }}
+          >
+            <BlurhashImage
+              src="/assets/happier/phone-left.webp"
+              alt=""
+              aria-hidden
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-auto"
+            />
+          </motion.div>
 
           {/* Right iPhone mockup, decorative — bleeds beyond the card (desktop only) */}
-          <motion.img
-            src="/assets/happier/phone-right.webp"
-            alt=""
-            aria-hidden
-            draggable={false}
-            loading="lazy"
-            decoding="async"
+          <motion.div
             initial={{ opacity: 0, x: 60, rotate: -8, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, x: 0, rotate: -16, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute right-[-280px] top-[60px] w-[360px] origin-top pointer-events-none select-none"
-          />
+            style={{ aspectRatio: '30 / 64' }}
+          >
+            <BlurhashImage
+              src="/assets/happier/phone-right.webp"
+              alt=""
+              aria-hidden
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-auto"
+            />
+          </motion.div>
 
           <div className="relative max-w-[729px] mx-auto flex flex-col gap-6">
             <h2 className="font-bold text-[28px] leading-tight text-white/80">
