@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
+import { BlurhashImage } from '../motion/Blurhash';
 import { selectionHaptic } from '../../lib/haptics';
 
 // Card layout from Figma node 8:35.
@@ -109,7 +110,7 @@ function PhotoCard({
       }}
     >
       <motion.div
-        className="block size-full overflow-hidden bg-[#1a1a1a]"
+        className="relative block size-full overflow-hidden bg-[#1a1a1a]"
         style={{
           borderWidth: `calc(${border} / ${canvasW} * 100cqw)`,
           borderRadius: `calc(${radius} / ${canvasW} * 100cqw)`,
@@ -127,13 +128,13 @@ function PhotoCard({
         }}
         whileHover={{ rotate: rotate === 0 ? 4 : rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
       >
-        <img
+        <BlurhashImage
           src={src}
           alt=""
           aria-hidden
           loading="eager"
           decoding="async"
-          className="block size-full object-cover"
+          className="absolute inset-0 block size-full object-cover"
           draggable={false}
         />
       </motion.div>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { BlurhashImage } from '../motion/Blurhash';
 
 const underlineVariants = {
   rest: {
@@ -56,7 +57,7 @@ function Polaroid({
         className="rounded-[30px] overflow-hidden relative"
         style={{ width: size, height: size }}
       >
-        <img src={src} alt="" aria-hidden draggable={false} loading="lazy" decoding="async" className="block size-full object-cover" />
+        <BlurhashImage src={src} alt="" aria-hidden draggable={false} loading="lazy" decoding="async" className="absolute inset-0 block size-full object-cover" />
         <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)]" />
       </div>
     </motion.div>

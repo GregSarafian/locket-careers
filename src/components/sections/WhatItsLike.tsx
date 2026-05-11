@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BlurhashImage } from '../motion/Blurhash';
 import { mediumHaptic } from '../../lib/haptics';
 
 type PhotoCard = {
@@ -147,16 +148,16 @@ export function WhatItsLike() {
                   initial={{ rotate: -8 }}
                   animate={{ rotate: -8 }}
                   whileHover={{ rotate: -4, scale: 1.04, transition: { duration: 0.4 } }}
-                  className="block size-full overflow-hidden"
+                  className="relative block size-full overflow-hidden"
                   style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 40, boxSizing: 'border-box', backgroundColor: '#312a1a' }}
                 >
-                  <img
+                  <BlurhashImage
                     src={photos[0].src}
                     alt=""
                     aria-hidden
                     loading="lazy"
                     decoding="async"
-                    className="block size-full object-cover"
+                    className="absolute inset-0 block size-full object-cover"
                     draggable={false}
                   />
                 </motion.div>
@@ -166,16 +167,16 @@ export function WhatItsLike() {
                   initial={{ rotate: 9 }}
                   animate={{ rotate: 9 }}
                   whileHover={{ rotate: 4, scale: 1.04, transition: { duration: 0.4 } }}
-                  className="block size-full overflow-hidden"
+                  className="relative block size-full overflow-hidden"
                   style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 32, boxSizing: 'border-box', backgroundColor: 'transparent' }}
                 >
-                  <img
+                  <BlurhashImage
                     src={photos[1].src}
                     alt=""
                     aria-hidden
                     loading="lazy"
                     decoding="async"
-                    className="block size-full object-cover"
+                    className="absolute inset-0 block size-full object-cover"
                     draggable={false}
                   />
                 </motion.div>
