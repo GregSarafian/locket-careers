@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { testimonials, type Testimonial } from '../../data/testimonials';
+import { selectionHaptic } from '../../lib/haptics';
 
 const CARD_WIDTH = 200;
 const GAP = 24;
@@ -136,6 +137,7 @@ function VideoCard({
               transition={{ duration: 0.18, ease: 'easeOut' }}
               onClick={(e) => {
                 e.stopPropagation();
+                selectionHaptic();
                 onSoundChange(!wantSound);
               }}
               data-no-emoji
@@ -166,6 +168,7 @@ function VideoCard({
                 className="absolute right-3 bottom-3 z-30 size-10 rounded-full bg-[#777777]/50 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:bg-[#777777]/70 transition-colors shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
                 onClick={(e) => {
                   e.stopPropagation();
+                  selectionHaptic();
                   onSoundChange(false);
                 }}
               >

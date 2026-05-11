@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { roles, type RoleBlock } from '../data/roles';
 import { Nav } from '../components/layout/Nav';
 import { Footer } from '../components/layout/Footer';
+import { mediumHaptic } from '../lib/haptics';
 import NotFound from './NotFound';
 
 function renderBody(blocks: RoleBlock[]) {
@@ -31,7 +32,7 @@ export default function RoleDetail() {
     <>
       <Nav />
       <main className="px-6 pt-32 pb-16 max-w-3xl mx-auto">
-        <Link to="/" className="text-sm text-[var(--color-text-muted)] hover:text-white">
+        <Link to="/" onClick={mediumHaptic} className="text-sm text-[var(--color-text-muted)] hover:text-white">
           ← Back to careers
         </Link>
         <h1 className="mt-4 text-3xl md:text-5xl font-semibold tracking-tight">{role.title}</h1>
@@ -40,6 +41,7 @@ export default function RoleDetail() {
         {role.applyUrl && (
           <a
             href={role.applyUrl}
+            onClick={mediumHaptic}
             className="mt-10 inline-block px-6 py-3 rounded-full bg-[var(--color-accent)] text-black font-medium hover:bg-[var(--color-accent-hover)]"
           >
             Apply

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { heavyHaptic, mediumHaptic } from '../../lib/haptics';
 
 function getMobileStoreUrl() {
   if (typeof navigator === 'undefined') return 'https://locket.camera';
@@ -112,7 +113,7 @@ export function Nav() {
           href="/"
           className="flex items-center shrink-0 transition-transform duration-200 ease-out active:scale-90"
           aria-label="Locket — home"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          onClick={(e) => { e.preventDefault(); mediumHaptic(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
           <img
             src="/assets/locket-logo.svg"
@@ -212,7 +213,13 @@ export function Nav() {
             type="button"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => {
+              setMobileOpen((o) => {
+                if (o) mediumHaptic();
+                else heavyHaptic();
+                return !o;
+              });
+            }}
             className="inline-flex items-center justify-center w-11 h-11 rounded-full text-white transition-transform duration-200 ease-out active:scale-90"
           >
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
@@ -247,7 +254,10 @@ export function Nav() {
                       key={l.label}
                       href={href}
                       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                      onClick={() => setMobileOpen(false)}
+                      onClick={() => {
+                        mediumHaptic();
+                        setMobileOpen(false);
+                      }}
                       className={className}
                     >
                       {l.label}
