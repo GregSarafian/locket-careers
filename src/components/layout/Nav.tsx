@@ -229,8 +229,7 @@ export function Nav() {
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, scale: 0.5, filter: 'blur(28px)' }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: 'top right' }}
-                className="absolute right-0 top-0 w-[160px] rounded-[26px] bg-white/[0.06] backdrop-blur-[12px] ring-1 ring-inset ring-white/15 p-2 shadow-[0_12px_40px_rgba(0,0,0,0.55)] flex flex-col items-stretch gap-1"
+                className="origin-top-right absolute right-0 top-0 w-[160px] rounded-[26px] bg-white/[0.06] backdrop-blur-[12px] ring-1 ring-inset ring-white/15 p-2 shadow-[0_12px_40px_rgba(0,0,0,0.55)] flex flex-col items-stretch gap-1"
               >
                 {links.map((l) => {
                   const isDownload = l.active;
