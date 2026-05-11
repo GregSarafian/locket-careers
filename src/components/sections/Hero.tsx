@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
+import { selectionHaptic } from '../../lib/haptics';
 
 // Card layout from Figma node 8:35.
 // Native canvas: 1245 x 550 (8 photos, 200x200 each, 16px black border, 40px radius).
@@ -219,6 +220,7 @@ export function Hero() {
             animate="rest"
             whileHover="hover"
             whileTap={{ scale: 0.9 }}
+            onClick={() => selectionHaptic()}
             className="inline-flex items-start gap-2 text-[var(--color-accent)] font-bold text-[22px] leading-[28px] md:text-[20px] md:leading-[25px]"
           >
             <span className="relative pb-1.5">

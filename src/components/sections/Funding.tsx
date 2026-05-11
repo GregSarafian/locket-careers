@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { selectionHaptic } from '../../lib/haptics';
 
 type Investor = { name: string; href: string };
 
@@ -44,6 +45,7 @@ function InvestorLink({ name, href }: { name: string; href: string }) {
       animate="rest"
       whileHover="hover"
       whileTap={{ scale: 0.9 }}
+      onClick={() => selectionHaptic()}
       className="relative inline-block pb-1 text-white/80 hover:text-white transition-colors duration-200"
     >
       {name}
@@ -67,6 +69,7 @@ function ReadMoreLink({ href }: { href: string }) {
       animate="rest"
       whileHover="hover"
       whileTap={{ scale: 0.9 }}
+      onClick={() => selectionHaptic()}
       className="text-[var(--color-accent)] whitespace-nowrap inline-flex items-center gap-1"
     >
       <span className="relative pb-1">
