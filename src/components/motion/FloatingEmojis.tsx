@@ -87,18 +87,25 @@ export function GlobalClickEmojis() {
             translateX: '-50%',
             translateY: '-50%',
           }}
-          initial={{ y: 0, x: 0, opacity: 0, scale: 0.4 }}
+          initial={{ y: 0, x: 0, opacity: 0, scale: 0.4, filter: 'blur(8px)' }}
           animate={{
             y: -320,
             x: e.driftX,
             opacity: [0, 0.9, 0.9, 0],
             scale: [0.4, 1, 1, 0.8],
+            filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'],
           }}
           transition={{
             duration: e.duration,
             delay: e.delay,
             ease: 'easeOut',
             opacity: {
+              duration: e.duration,
+              delay: e.delay,
+              times: [0, 0.1, 0.72, 1],
+              ease: 'linear',
+            },
+            filter: {
               duration: e.duration,
               delay: e.delay,
               times: [0, 0.1, 0.72, 1],
