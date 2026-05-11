@@ -13,7 +13,7 @@ export const press: PressItem[] = [
     logo: '/assets/press/logos/apple.svg',
     logoHeight: 20,
     title: 'Cultural Impact Winner: Locket',
-    href: 'https://apps.apple.com/story/id1660960561',
+    href: 'https://apps.apple.com/us/story/id1647059807',
     image: '/assets/press/press-1.webp',
   },
   {
@@ -21,7 +21,7 @@ export const press: PressItem[] = [
     logo: '/assets/press/logos/nyt.svg',
     logoHeight: 20,
     title: 'The 2022 Good Tech Awards',
-    href: 'https://www.nytimes.com/2022/12/30/technology/good-tech-awards-2022.html',
+    href: 'https://www.nytimes.com/2022/12/29/technology/good-tech-awards-2022.html',
     image: '/assets/press/press-2.webp',
   },
   {
@@ -44,7 +44,7 @@ export const press: PressItem[] = [
     source: 'Fast Company',
     logo: '/assets/press/logos/fast.svg',
     title: "Locket, the #1 app in Apple's App Store, uses a trick hiding in plain sight",
-    href: 'https://www.fastcompany.com/90716499/locket-apple-app-store-1-app',
+    href: 'https://www.fastcompany.com/90712709/locket-the-1-app-in-apples-app-store-uses-a-trick-hiding-in-plain-sight',
     image: '/assets/press/press-5.webp',
   },
   {
@@ -52,7 +52,7 @@ export const press: PressItem[] = [
     logo: '/assets/press/logos/tc.svg',
     title:
       "Locket app for iPhone: How a birthday present turned into one of 2022's most popular apps",
-    href: 'https://techcrunch.com/2022/01/10/locket-most-popular-app-iphone/',
+    href: 'https://techcrunch.com/2022/01/11/locket-an-app-for-sharing-photos-to-friends-homescreens-hits-the-top-of-the-app-store/',
     image: '/assets/press/press-6.webp',
   },
 ];

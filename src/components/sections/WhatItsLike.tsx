@@ -87,7 +87,7 @@ function AccordionRow({
       className={[
         'rounded-[24px] transition-colors transition-opacity duration-200',
         open ? 'bg-white/5' : 'bg-transparent',
-        dimmed ? 'opacity-40' : 'opacity-100',
+        dimmed ? '[@media(hover:hover)]:opacity-40' : 'opacity-100',
       ].join(' ')}
     >
       <button

@@ -16,6 +16,7 @@ function getMobileStoreUrl() {
 
 const links = [
   { label: 'Help Center', href: 'https://help.locketcamera.com', external: true },
+  { label: 'Ambassadors', href: 'https://ambassadors.locketcamera.com', external: true },
   { label: 'Artists', href: 'https://locket.camera/artists', external: true },
   { label: 'Press', href: 'mailto:press@locketcamera.com' },
   { label: 'Brand', href: 'https://locket.camera/brand', external: true },
