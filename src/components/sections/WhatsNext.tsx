@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export function WhatsNext() {
   return (
-    <section className="px-6 md:px-[120px] py-20">
+    <section className="px-6 md:px-[120px] py-10 md:py-20">
       <div className="max-w-[1080px] mx-auto flex flex-col items-center justify-center gap-6 text-center">
         <div className="flex flex-col items-center gap-4">
           <h2 className="font-bold text-[40px] leading-tight text-white/80">What's next?</h2>
@@ -11,7 +11,7 @@ export function WhatsNext() {
           </p>
         </div>
 
-        <p className="font-bold text-[20px] leading-tight text-white/80">
+        <p className="font-bold text-[18px] leading-[24px] md:text-[20px] md:leading-tight text-white/80">
             Email us at{' '}
             <motion.a
               href="mailto:jobs@locketcamera.com"

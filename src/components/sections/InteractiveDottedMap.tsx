@@ -57,7 +57,19 @@ export function InteractiveDottedMap() {
     svg.setAttribute('class', 'block w-full h-full');
     svg.style.overflow = 'visible';
 
+    const mql = window.matchMedia('(max-width: 767px)');
+    const applyViewBox = () => {
+      svg.setAttribute(
+        'viewBox',
+        mql.matches ? '60 10 340 410' : '0 0 894 429'
+      );
+    };
+    applyViewBox();
+    mql.addEventListener('change', applyViewBox);
+
     const vb = svg.viewBox.baseVal;
+    const vbX = vb.x;
+    const vbY = vb.y;
     const vbW = vb.width || 894;
     const vbH = vb.height || 429;
 
@@ -75,7 +87,12 @@ export function InteractiveDottedMap() {
       const dot: Dot = { el, cx, cy };
       dots.push(dot);
       if (el.getAttribute('fill') === ACCENT_FILL) {
-        accents.push({ ...dot, label: '', xPct: (cx / vbW) * 100, yPct: (cy / vbH) * 100 });
+        accents.push({
+          ...dot,
+          label: '',
+          xPct: ((cx - vbX) / vbW) * 100,
+          yPct: ((cy - vbY) / vbH) * 100,
+        });
       }
     }
     accents.sort((a, b) => a.cx - b.cx);
@@ -172,13 +189,14 @@ export function InteractiveDottedMap() {
     return () => {
       svg.removeEventListener('mousemove', onMove);
       svg.removeEventListener('mouseleave', onLeave);
+      mql.removeEventListener('change', applyViewBox);
       if (rafId != null) cancelAnimationFrame(rafId);
     };
   }, [svgMarkup]);
 
   return (
     <div
-      className="relative aspect-[892/426] w-full"
+      className="relative aspect-[340/410] md:aspect-[892/426] w-full"
       aria-label="Map showing global team locations"
     >
       {svgMarkup && (
