@@ -113,16 +113,26 @@ export function Nav() {
         <a
           href="/"
           className="flex items-center shrink-0 transition-transform duration-200 ease-out active:scale-90"
-          aria-label="Locket — home"
+          aria-label="Locket Careers — home"
           onClick={(e) => { e.preventDefault(); mediumHaptic(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
           <img
             src="/assets/locket-logo.svg"
-            alt="Locket"
+            alt=""
+            aria-hidden
             className="h-8 w-auto"
             width={134}
             height={32}
           />
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, x: -10, filter: 'blur(12px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="ml-[6px] font-bold text-[28px] leading-none tracking-[-0.5px] text-white/45 whitespace-nowrap"
+          >
+            Careers
+          </motion.span>
         </a>
 
         <ul className="hidden md:flex items-center gap-1">
