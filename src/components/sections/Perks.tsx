@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { perks } from '../../data/perks';
+import { mediumHaptic } from '../../lib/haptics';
 
 type Perk = typeof perks[number];
 
@@ -22,7 +23,10 @@ function PerkCard({
       {/* Mobile: tap-to-expand row layout */}
       <button
         type="button"
-        onClick={onToggle}
+        onClick={() => {
+          mediumHaptic();
+          onToggle();
+        }}
         data-no-emoji
         className={[
           'md:hidden w-full text-left rounded-[32px] px-6 py-6 overflow-hidden',

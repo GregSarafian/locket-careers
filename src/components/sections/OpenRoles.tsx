@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { roles, type Role } from '../../data/roles';
+import { mediumHaptic } from '../../lib/haptics';
 
 
 function PlusMinusIcon({ open }: { open: boolean }) {
@@ -82,7 +83,10 @@ function ApplyPill({
       href={href}
       whileTap={{ scale: 0.8 }}
       className={`inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white/80 font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:text-white transition-colors ${className}`}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        mediumHaptic();
+      }}
     >
       {children}
     </motion.a>
@@ -103,7 +107,14 @@ function RoleCard({
   return (
     <div className="rounded-[32px] bg-white/5 overflow-hidden">
       <div
-        onClick={expandable ? onToggle : undefined}
+        onClick={
+          expandable
+            ? () => {
+                mediumHaptic();
+                onToggle();
+              }
+            : undefined
+        }
         data-no-emoji
         className={[
           'w-full flex items-center justify-between gap-4 p-8 text-left',
@@ -126,6 +137,7 @@ function RoleCard({
               whileTap={{ scale: 0.8 }}
               onClick={(e) => {
                 e.stopPropagation();
+                mediumHaptic();
                 onToggle();
               }}
               aria-expanded={expanded}

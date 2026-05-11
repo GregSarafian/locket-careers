@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { mediumHaptic } from '../../lib/haptics';
 
 type PhotoCard = {
   src: string;
@@ -91,7 +92,14 @@ function AccordionRow({
     >
       <button
         type="button"
-        onClick={expandable ? onToggle : undefined}
+        onClick={
+          expandable
+            ? () => {
+                mediumHaptic();
+                onToggle();
+              }
+            : undefined
+        }
         aria-expanded={expandable ? open : undefined}
         data-no-emoji
         className="w-full flex items-start justify-between gap-4 pl-6 pr-4 py-4 text-left"

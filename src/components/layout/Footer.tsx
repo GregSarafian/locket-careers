@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { selectionHaptic } from '../../lib/haptics';
 
 type LinkGroup = {
   heading: string;
@@ -87,6 +88,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     aria-label={s.label}
                     whileTap={{ scale: 0.9 }}
+                    onClick={selectionHaptic}
                     className="inline-flex items-center justify-center hover:text-white transition-colors"
                   >
                     {s.icon}
@@ -109,6 +111,7 @@ export function Footer() {
                     href={l.href}
                     {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     whileTap={{ scale: 0.9 }}
+                    onClick={selectionHaptic}
                     className="font-semibold text-white/40 hover:text-white/80 transition-colors"
                   >
                     {l.label}
