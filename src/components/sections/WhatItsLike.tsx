@@ -125,10 +125,10 @@ export function WhatItsLike() {
   const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
 
   return (
-    <section className="px-6 md:px-[120px] py-10">
+    <section className="px-3 md:px-[120px] py-10">
       <div className="max-w-[1080px] mx-auto flex flex-col md:flex-row gap-12 items-start">
         {/* Left column: heading + photo collage */}
-        <div className="flex flex-col gap-6 shrink-0 md:max-w-[391px]">
+        <div className="flex flex-col gap-6 shrink-0 md:max-w-[391px] px-3 md:px-0">
           <h3 className="font-bold text-[28px] leading-tight text-white/80">
             What's it like to work at Locket?
           </h3>

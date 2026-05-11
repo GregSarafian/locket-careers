@@ -68,12 +68,20 @@ function RoleBody({ role }: { role: Role }) {
   );
 }
 
-function ApplyPill({ href, children = 'Apply' }: { href: string; children?: React.ReactNode }) {
+function ApplyPill({
+  href,
+  children = 'Apply',
+  className = '',
+}: {
+  href: string;
+  children?: React.ReactNode;
+  className?: string;
+}) {
   return (
     <motion.a
       href={href}
       whileTap={{ scale: 0.8 }}
-      className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white/80 font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:text-white transition-colors"
+      className={`inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white/80 font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:text-white transition-colors ${className}`}
       onClick={(e) => e.stopPropagation()}
     >
       {children}
@@ -102,7 +110,7 @@ function RoleCard({
           expandable ? 'cursor-pointer' : 'cursor-default',
         ].join(' ')}
       >
-        <div className="flex items-center gap-2 min-w-0 flex-1">
+        <div className="flex flex-col md:flex-row md:items-center gap-0 md:gap-2 min-w-0 flex-1">
           <span className="font-bold text-[20px] leading-tight text-white/80 truncate">
             {role.title}
           </span>
@@ -127,7 +135,9 @@ function RoleCard({
               <PlusMinusIcon open={expanded} />
             </motion.button>
           )}
-          <ApplyPill href={role.applyUrl} />
+          <div className="hidden md:flex">
+            <ApplyPill href={role.applyUrl} />
+          </div>
         </div>
       </div>
 
@@ -143,7 +153,12 @@ function RoleCard({
             <div className="px-8 pb-8 flex flex-col gap-6 items-stretch">
               <RoleBody role={role} />
               <div className="flex flex-wrap gap-2 items-center justify-center text-white">
-                <ApplyPill href={role.applyUrl}>Apply via Email</ApplyPill>
+                <ApplyPill
+                  href={role.applyUrl}
+                  className="w-full md:w-auto text-[20px] leading-[26px] md:text-[17px] md:leading-[22px] !py-4 md:!py-2"
+                >
+                  Apply via Email
+                </ApplyPill>
                 <span className="font-bold text-[17px] leading-[22px] tracking-[0.17px]">
                   or reach out to one of us personally
                 </span>
@@ -160,7 +175,7 @@ export function OpenRoles() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
   return (
-    <section id="open-roles" className="px-6 md:px-[120px] py-10 scroll-mt-[140px]">
+    <section id="open-roles" className="px-6 md:px-[120px] pt-0 pb-10 md:py-10 scroll-mt-[140px]">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6">
         <h3 className="font-bold text-[28px] leading-tight text-white/80">Open Roles</h3>
 
