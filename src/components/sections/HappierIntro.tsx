@@ -2,10 +2,53 @@ import { motion } from 'framer-motion';
 
 export function HappierIntro() {
   return (
-    <section className="px-6 md:px-[120px] py-10">
+    <section className="px-2 md:px-[120px] pt-2 pb-10 md:py-10 overflow-hidden">
       <div className="relative max-w-[1080px] mx-auto">
+        {/* Mobile-only phone collage above the heading; phones bleed off-screen
+            and extend down behind the text, faded by a mask. */}
+        <div className="lg:hidden relative h-[260px] -mx-2 mb-8 pointer-events-none select-none">
+          <motion.img
+            src="/assets/happier/phone-left.webp"
+            alt=""
+            aria-hidden
+            draggable={false}
+            loading="lazy"
+            decoding="async"
+            initial={{ opacity: 0, x: -40, rotate: 0, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, x: 0, rotate: 12, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute left-[-100px] top-0 w-[280px] origin-top"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+              maskImage:
+                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+            }}
+          />
+          <motion.img
+            src="/assets/happier/phone-right.webp"
+            alt=""
+            aria-hidden
+            draggable={false}
+            loading="lazy"
+            decoding="async"
+            initial={{ opacity: 0, x: 40, rotate: 0, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, x: 0, rotate: -12, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="absolute right-[-100px] top-[30px] w-[280px] origin-top"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+              maskImage:
+                'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 92%)',
+            }}
+          />
+        </div>
+
         <div className="relative p-8 md:p-[60px]">
-          {/* Left iPhone mockup, decorative — bleeds beyond the card */}
+          {/* Left iPhone mockup, decorative — bleeds beyond the card (desktop only) */}
           <motion.img
             src="/assets/happier/phone-left.webp"
             alt=""
@@ -20,7 +63,7 @@ export function HappierIntro() {
             className="hidden lg:block absolute left-[-280px] top-[60px] w-[360px] origin-top pointer-events-none select-none"
           />
 
-          {/* Right iPhone mockup, decorative — bleeds beyond the card */}
+          {/* Right iPhone mockup, decorative — bleeds beyond the card (desktop only) */}
           <motion.img
             src="/assets/happier/phone-right.webp"
             alt=""
