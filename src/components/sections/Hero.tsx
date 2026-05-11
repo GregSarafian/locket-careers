@@ -183,11 +183,11 @@ export function Hero() {
   }, []);
 
   const collageWidth = isMobile
-    ? '100vw'
+    ? '90vw'
     : `min(1500px, 100vw, calc((100dvh - 320px) * ${layout.canvasW} / ${layout.canvasH}))`;
 
   return (
-    <section className="relative pt-20 md:pt-7 pb-2 md:pb-20 overflow-hidden">
+    <section className="relative pt-15 md:pt-7 pb-2 md:pb-20 overflow-hidden">
       <div
         className="relative mx-auto z-10"
         style={{
@@ -201,9 +201,9 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-2 pb-16 md:py-10 px-6 md:px-[120px] text-center">
+      <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-1 pb-16 md:py-10 px-6 md:px-[120px] text-center">
         <Reveal delay={0.2}>
-          <h1 className="font-bold text-[36px] md:text-[40px] leading-none text-white/80 whitespace-nowrap">
+          <h1 className="font-bold text-[28px] md:text-[40px] leading-none text-white/80 whitespace-nowrap">
             Careers at Locket
           </h1>
         </Reveal>
