@@ -36,7 +36,7 @@ export default function RoleDetail() {
           ← Back to careers
         </Link>
         <h1 className="mt-4 text-3xl md:text-5xl font-semibold tracking-tight">{role.title}</h1>
-        <div className="mt-2 text-[var(--color-text-muted)]">{role.location}</div>
+        {role.location && <div className="mt-2 text-[var(--color-text-muted)]">{role.location}</div>}
         {role.body && <div className="mt-6">{renderBody(role.body)}</div>}
         {role.applyUrl && (
           <a

@@ -105,7 +105,7 @@ function RoleCard({
   const expandable = !!role.body;
 
   return (
-    <div className="rounded-[32px] bg-white/5 overflow-hidden">
+    <div className="rounded-[20px] bg-white/5 overflow-hidden">
       <div
         onClick={
           expandable
@@ -117,7 +117,7 @@ function RoleCard({
         }
         data-no-emoji
         className={[
-          'w-full flex items-center justify-between gap-4 p-8 text-left',
+          'w-full flex items-center justify-between gap-4 p-4 pl-6 text-left',
           expandable ? 'cursor-pointer' : 'cursor-default',
         ].join(' ')}
       >
@@ -125,9 +125,11 @@ function RoleCard({
           <span className="font-bold text-[20px] leading-tight text-white/80 truncate">
             {role.title}
           </span>
-          <span className="font-semibold text-[20px] leading-tight text-white/30 truncate">
-            {role.location}
-          </span>
+          {role.location && (
+            <span className="font-semibold text-[20px] leading-tight text-white/30 truncate">
+              {role.location}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
@@ -162,7 +164,7 @@ function RoleCard({
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="px-8 pb-8 flex flex-col gap-6 items-stretch">
+            <div className="px-4 pl-6 pb-4 flex flex-col gap-6 items-stretch">
               <RoleBody role={role} />
               <div className="flex flex-wrap gap-2 items-center justify-center text-white">
                 <ApplyPill
@@ -189,9 +191,11 @@ export function OpenRoles() {
   return (
     <section id="open-roles" className="px-6 md:px-[120px] pt-0 pb-10 md:py-10 scroll-mt-[140px]">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6">
-        <h3 className="font-bold text-[28px] leading-tight text-white/80">Open Roles</h3>
+        <h3 className="font-bold text-[28px] leading-tight text-white/80">
+          {roles.length > 1 ? `Open Roles (${roles.length})` : 'Open Roles'}
+        </h3>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           {roles.map((r) => (
             <RoleCard
               key={r.slug}
