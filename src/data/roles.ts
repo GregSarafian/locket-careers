@@ -15,7 +15,7 @@ const APPLY_EMAIL = 'mailto:jobs@locketcamera.com';
 export const roles: Role[] = [
   {
     slug: 'backend-engineer',
-    title: 'Backend Engineer',
+    title: 'Senior Backend Engineer',
     location: 'Product',
     applyUrl: `${APPLY_EMAIL}?subject=Backend%20Engineer`,
     body: [
@@ -65,48 +65,6 @@ export const roles: Role[] = [
           { lead: 'Strong background in Computer Science.' },
           { lead: 'Remote friendly for anyone within +/- 3 hours of PST' },
         ],
-      },
-    ],
-  },
-  {
-    slug: 'monetization-lead',
-    title: 'Monetization Lead',
-    location: 'Operations',
-    applyUrl: `${APPLY_EMAIL}?subject=Monetization%20Lead`,
-    body: [
-      {
-        kind: 'p',
-        text:
-          'Last year, we introduced Locket Gold, a subscription offering to allow power users to get the most out of Locket, as well as in-feed advertising. Over the last 18 months, Locket Gold has grown to millions in ARR, and in-feed ads now generate nearly 1B impressions per month.',
-      },
-      {
-        kind: 'p',
-        text:
-          "Now, we're looking for a leader to own monetization within Locket and continue to grow both business lines. As our first hire focused on monetization, you'll play a big role in shaping our subscription and ads businesses. It's the rare opportunity to take ownership over a multi-million dollar consumer business used by 10s of millions of people every month.",
-      },
-      { kind: 'p', text: "As Monetization Lead, you'll be responsible for:" },
-      {
-        kind: 'ul',
-        items: [
-          { lead: 'Growing Locket Gold subscription revenue' },
-          { lead: 'Optimizing programatic ad performance and managing direct ad sales' },
-          { lead: 'Exploring new monetization opportunities' },
-        ],
-      },
-      { kind: 'p', text: "You'll be a great fit if you've already done some combination of…" },
-      {
-        kind: 'ul',
-        items: [
-          { lead: 'Managing product development for a consumer product' },
-          { lead: 'Owning monetization roadmaps at a large-scale consumer app' },
-          { lead: 'Launching mobile subscription products' },
-          { lead: 'Conducting ad sales and partnerships' },
-        ],
-      },
-      {
-        kind: 'p',
-        text:
-          "While all backgrounds are welcome, we're looking for someone with **3+ years of relevant** experience building and growing consumer products at-scale. **Remote friendly** for anyone within +/- 3 hours of PST.",
       },
     ],
   },
@@ -217,7 +175,7 @@ export const roles: Role[] = [
   },
   {
     slug: 'paid-acquisition-manager',
-    title: 'Paid Acquisition Manager (TikTok, Meta, YouTube)',
+    title: 'Paid Acquisition Manager',
     location: 'Marketing',
     applyUrl: `${APPLY_EMAIL}?subject=Paid%20Acquisition%20Manager`,
     body: [

@@ -36,7 +36,7 @@ export function Challenges() {
     <section className="px-6 md:px-[120px] py-10">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6 items-start">
         <h3 className="font-bold text-[28px] leading-tight text-white/80">
-          What are some of the challenges?
+          What are some of the opportunities?
         </h3>
 
         <div className="grid md:grid-cols-3 gap-6 w-full">
