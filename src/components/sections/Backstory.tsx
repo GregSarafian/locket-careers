@@ -88,6 +88,13 @@ export function Backstory() {
 
             <div className="font-semibold text-[20px] leading-[26px] text-white/60 space-y-[1.25em]">
               <p>
+                <img
+                  src="/assets/quote.svg"
+                  alt=""
+                  aria-hidden
+                  draggable={false}
+                  className="inline-block align-baseline mr-2 opacity-20 h-[0.75em] w-auto"
+                />
                 I built Locket as a birthday present for my girlfriend Ava back in 2022. She was
                 heading back to school at UCSB, so we were about to go long distance. I wanted to
                 find a way to reduce the distance between us, but none of the existing social

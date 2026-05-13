@@ -50,7 +50,7 @@ function NavBackdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 h-[100px] md:h-[140px] -z-10"
+      className="pointer-events-none absolute inset-x-0 top-0 h-[72px] md:h-[88px] -z-10"
     >
       {blurLayers.map((layer, i) => (
         <div

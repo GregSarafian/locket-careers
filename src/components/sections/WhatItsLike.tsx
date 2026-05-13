@@ -147,9 +147,9 @@ export function WhatItsLike() {
                 <motion.div
                   initial={{ rotate: -8 }}
                   animate={{ rotate: -8 }}
-                  whileHover={{ rotate: -4, scale: 1.04, transition: { duration: 0.4 } }}
+                  whileHover={{ rotate: -4, scale: 1.04, transition: { duration: 0.22 } }}
                   className="relative block size-full overflow-hidden"
-                  style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 40, boxSizing: 'border-box', backgroundColor: '#312a1a' }}
+                  style={{ borderRadius: 40, boxSizing: 'border-box', backgroundColor: '#312a1a', boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.35)' }}
                 >
                   <BlurhashImage
                     src={photos[0].src}
@@ -166,9 +166,9 @@ export function WhatItsLike() {
                 <motion.div
                   initial={{ rotate: 9 }}
                   animate={{ rotate: 9 }}
-                  whileHover={{ rotate: 4, scale: 1.04, transition: { duration: 0.4 } }}
+                  whileHover={{ rotate: 4, scale: 1.04, transition: { duration: 0.22 } }}
                   className="relative block size-full overflow-hidden"
-                  style={{ borderColor: '#0d0900', borderWidth: 12, borderStyle: 'solid', borderRadius: 32, boxSizing: 'border-box', backgroundColor: 'transparent' }}
+                  style={{ borderRadius: 32, boxSizing: 'border-box', boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.35)' }}
                 >
                   <BlurhashImage
                     src={photos[1].src}

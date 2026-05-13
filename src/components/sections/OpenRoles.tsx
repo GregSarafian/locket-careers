@@ -82,7 +82,7 @@ function ApplyPill({
     <motion.a
       href={href}
       whileTap={{ scale: 0.8 }}
-      className={`inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 text-white/80 font-bold text-[17px] leading-[22px] tracking-[0.17px] hover:text-white transition-colors ${className}`}
+      className={`inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-white/80 hover:text-white font-bold text-[17px] leading-[22px] tracking-[0.17px] transition-colors ${className}`}
       onClick={(e) => {
         e.stopPropagation();
         mediumHaptic();
@@ -105,7 +105,7 @@ function RoleCard({
   const expandable = !!role.body;
 
   return (
-    <div className="rounded-[20px] bg-white/5 overflow-hidden">
+    <div className={`rounded-[20px] bg-white/5 transition-colors overflow-hidden ${expanded ? '' : 'hover:bg-white/10'}`}>
       <div
         onClick={
           expandable
@@ -121,7 +121,7 @@ function RoleCard({
           expandable ? 'cursor-pointer' : 'cursor-default',
         ].join(' ')}
       >
-        <div className="flex flex-col md:flex-row md:items-center gap-0 md:gap-2 min-w-0 flex-1">
+        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 min-w-0 flex-1">
           <span className="font-bold text-[20px] leading-tight text-white/80 truncate">
             {role.title}
           </span>
@@ -191,8 +191,13 @@ export function OpenRoles() {
   return (
     <section id="open-roles" className="px-6 md:px-[120px] pt-0 pb-10 md:py-10 scroll-mt-[140px]">
       <div className="max-w-[1080px] mx-auto flex flex-col gap-6">
-        <h3 className="font-bold text-[28px] leading-tight text-white/80">
-          {roles.length > 1 ? `Open Roles (${roles.length})` : 'Open Roles'}
+        <h3 className="font-bold text-[28px] leading-tight text-white/80 flex items-center gap-3 justify-center md:justify-start">
+          <span>Open Roles</span>
+          {roles.length > 1 && (
+            <span className="inline-flex items-center justify-center rounded-full bg-white/10 text-white/80 text-[18px] leading-none w-8 h-8">
+              {roles.length}
+            </span>
+          )}
         </h3>
 
         <div className="flex flex-col gap-3">
