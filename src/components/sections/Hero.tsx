@@ -280,13 +280,17 @@ export function Hero() {
     };
   }, []);
 
+  // On mobile, also cap the collage by the dynamic viewport height (which
+  // excludes the browser toolbar) minus space reserved for the nav offset and
+  // text/CTA block below, so the headline and Open Roles link stay above the
+  // fold without scrolling.
   const collageWidth = isMobile
-    ? '90vw'
+    ? `min(90vw, calc((100dvh - 340px) * ${layout.canvasW} / ${layout.canvasH}))`
     : `min(1300px, 100vw, calc((100dvh - 380px) * ${layout.canvasW} / ${layout.canvasH}))`;
 
   return (
     <section className="relative pt-[90px] md:pt-0 pb-2 md:pb-0 md:min-h-[100dvh] md:flex md:flex-col md:justify-evenly overflow-hidden">
-      <SparkleField />
+      {ready && <SparkleField />}
       <div
         className="relative mx-auto z-10"
         style={{
