@@ -77,7 +77,7 @@ export const roles: Role[] = [
       {
         kind: 'p',
         text:
-          'Locket has grown to 10M+ DAU with a team of 11. We obsessed over onboarding and friending. We built a UGC virality program that pioneered what creator content looks like on social today. We’ve shipped web apps that have gone viral overnight. Our biggest growth moments have come from creative, scrappy, and strategic experiments shipped in weeks, not quarters.',
+          'Locket has grown to 10M+ DAU with a team of 12. We obsessed over onboarding and friending. We built a UGC virality program that pioneered what creator content looks like on social today. We’ve shipped web apps that have gone viral overnight. Our biggest growth moments have come from creative, scrappy, and strategic experiments shipped in weeks, not quarters.',
       },
       {
         kind: 'p',
@@ -477,7 +477,7 @@ export const roles: Role[] = [
       {
         kind: 'p',
         text:
-          "Tell us what you want to work on, why Locket needs it, and why you're the person to do it. We're a team of 11 building for 10M+ users — there's no shortage of interesting problems to solve.",
+          "Tell us what you want to work on, why Locket needs it, and why you're the person to do it. We're a team of 12 building for 10M+ users — there's no shortage of interesting problems to solve.",
       },
       {
         kind: 'p',

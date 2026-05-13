@@ -26,7 +26,7 @@ const traits: Trait[] = [
   {
     title: 'Small and scrappy',
     body:
-      "Despite shipping to millions of DAU, we are still a small team of 11. We believe the best products are built by small teams of incredibly passionate people. This means you'll get to play a key role in defining the future of Locket.",
+      "Despite shipping to millions of DAU, we are still a small team of 12. We believe the best products are built by small teams of incredibly passionate people. This means you'll get to play a key role in defining the future of Locket.",
   },
   {
     title: 'Detail-obsessed',

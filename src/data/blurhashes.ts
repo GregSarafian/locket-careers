@@ -45,6 +45,16 @@ export const blurhashes: Record<string, BlurhashEntry> = {
     "w": 64,
     "h": 48
   },
+  "/assets/hero/hero-10.webp": {
+    "hash": "LXD]6o%2IURi~VxaM{RjR,n~ofR*",
+    "w": 64,
+    "h": 42
+  },
+  "/assets/hero/hero-11.webp": {
+    "hash": "LmGlbZxvtRs;yZaeWBbFR*RjWAWB",
+    "w": 64,
+    "h": 42
+  },
   "/assets/hero/hero-2.webp": {
     "hash": "TWIN~xi^kr.T-njcJ:tQM{?Gt7oI",
     "w": 48,
@@ -79,6 +89,11 @@ export const blurhashes: Record<string, BlurhashEntry> = {
     "hash": "LVG@[9~BoyV@%1M{s:xZXSnis:R+",
     "w": 64,
     "h": 48
+  },
+  "/assets/hero/hero-9.webp": {
+    "hash": "LBDv4a.A?HX3D}D$0M%1?GWZ-;M|",
+    "w": 64,
+    "h": 42
   },
   "/assets/og-careers.png": {
     "hash": "L39sxK0w^l+Y0LrC-m%N00}@NaI.",

@@ -36,6 +36,9 @@ const desktopPhotoPool: Pick<Card, 'src' | 'title' | 'subtitle'>[] = [
   { src: '/assets/hero/hero-5.webp', title: 'Morning Hike',   subtitle: 'Monterey, CA · 2024' },
   { src: '/assets/hero/hero-6.webp', title: 'Friends',        subtitle: 'San Francisco, CA · 2024' },
   { src: '/assets/hero/hero-8.webp', title: 'Studio Day',     subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-9.webp', title: 'On Film',        subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-10.webp', title: 'On Film',       subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-11.webp', title: 'On Film',       subtitle: 'San Francisco, CA · 2024' },
 ];
 
 // Four fixed slots distributed across the 1245x550 canvas. Slots overlap
