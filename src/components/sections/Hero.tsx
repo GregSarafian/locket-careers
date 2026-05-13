@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Reveal } from '../motion/Reveal';
 import { BlurhashImage } from '../motion/Blurhash';
 import { selectionHaptic } from '../../lib/haptics';
 
@@ -23,7 +22,7 @@ const DESKTOP_CANVAS_H = 550;
 // Mobile collage canvas — 440px wide, height sized to tightly fit the 3-card
 // cluster (lowest card bottom + ~20px margin).
 const MOBILE_CANVAS_W = 440;
-const MOBILE_CANVAS_H = 600;
+const MOBILE_CANVAS_H = 680;
 
 // Pool of all hero photos. On desktop we render a random 4-card subset of this
 // pool, placed into the fixed slots below.
@@ -52,9 +51,9 @@ const desktopSlots: Omit<Card, 'src' | 'title' | 'subtitle'>[] = [
 // each and overlap heavily: two on the top row (left + right), with a third
 // pushed below and slightly off-center so it overlaps both.
 const mobileSlots: Omit<Card, 'src' | 'title' | 'subtitle'>[] = [
-  { left: 10,  top: 140, rotate: -10 },
-  { left: 90,  top: 340, rotate: 7 },
-  { left: 190, top: 20,  rotate: 8 },
+  { left: 10,  top: 180, rotate: -10 },
+  { left: 90,  top: 380, rotate: 7 },
+  { left: 190, top: 60,  rotate: 8 },
 ];
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;
@@ -305,17 +304,27 @@ export function Hero() {
       </div>
 
       <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-10 pb-12 md:py-0 px-6 md:px-[120px] text-center">
-        <Reveal delay={0.2}>
-          <h1 className="font-bold text-[28px] md:text-[40px] leading-none text-white/80 whitespace-nowrap">
-            Careers at Locket
-          </h1>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <p className="font-semibold text-[22px] leading-[28px] md:text-[28px] md:leading-tight text-white/60">
-            Build the social network that loves you back
-          </p>
-        </Reveal>
-        <Reveal delay={0.4}>
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          className="font-bold text-[28px] md:text-[40px] leading-none text-white/80 whitespace-nowrap"
+        >
+          Careers at Locket
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+          className="font-semibold text-[22px] leading-[28px] md:text-[28px] md:leading-tight text-white/60"
+        >
+          Build the social network that loves you back
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+        >
           <motion.a
             href="#open-roles"
             initial="rest"
@@ -355,7 +364,7 @@ export function Hero() {
               <path d="M5 10l5 5 5-5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </motion.a>
-        </Reveal>
+        </motion.div>
       </div>
     </section>
   );
