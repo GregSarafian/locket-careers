@@ -279,17 +279,18 @@ export function Hero() {
     };
   }, []);
 
-  // On mobile, also cap the collage by the dynamic viewport height (which
-  // excludes the browser toolbar) minus space reserved for the nav offset and
-  // text/CTA block below, so the headline and Open Roles link stay above the
-  // fold without scrolling.
+  // Cap the collage by the small viewport height (svh stays constant as the
+  // mobile browser toolbar collapses, so the collage doesn't resize on scroll)
+  // minus space reserved for the nav offset and text/CTA block, so the headline
+  // and Open Roles link stay above the fold without scrolling.
   const collageWidth = isMobile
-    ? `min(90vw, calc((100dvh - 340px) * ${layout.canvasW} / ${layout.canvasH}))`
-    : `min(1300px, 100vw, calc((100dvh - 380px) * ${layout.canvasW} / ${layout.canvasH}))`;
+    ? `min(92vw, calc((100svh - 230px) * ${layout.canvasW} / ${layout.canvasH}))`
+    : `min(1300px, 100vw, calc((100svh - 380px) * ${layout.canvasW} / ${layout.canvasH}))`;
 
   return (
-    <section className="relative pt-[90px] md:pt-0 pb-2 md:pb-0 md:min-h-[100dvh] md:flex md:flex-col md:justify-evenly overflow-hidden">
+    <section className="relative pt-[90px] md:pt-0 pb-4 md:pb-0 min-h-[100svh] flex flex-col overflow-hidden">
       {ready && <SparkleField />}
+      <div aria-hidden className="flex-[0.75] md:flex-1" />
       <div
         className="relative mx-auto z-10"
         style={{
@@ -302,8 +303,9 @@ export function Hero() {
           <PhotoCard key={c.src} {...c} index={i} ready={ready} layout={layout} />
         ))}
       </div>
+      <div aria-hidden className="flex-1" />
 
-      <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-10 pb-12 md:py-0 px-6 md:px-[120px] text-center">
+      <div className="relative z-30 flex flex-col items-center justify-center gap-3 md:gap-4 md:py-0 px-6 md:px-[120px] text-center">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -366,6 +368,7 @@ export function Hero() {
           </motion.a>
         </motion.div>
       </div>
+      <div aria-hidden className="flex-1" />
     </section>
   );
 }
