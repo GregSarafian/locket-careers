@@ -16,7 +16,7 @@ export function AboutStats() {
           <span className="text-white/30">Since 2022</span>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 justify-center">
           {stats.map((s) => (
             <motion.div
               key={s.label}
@@ -25,7 +25,7 @@ export function AboutStats() {
               whileHover="hover"
               variants={{ rest: { y: 0 }, hover: { y: -3 } }}
               transition={{ duration: 0.3 }}
-              className="h-[160px] p-6 md:p-10 rounded-[40px] flex flex-col items-center justify-center gap-2 bg-gradient-to-b from-white/[0.03] to-white/[0.05] text-white/80"
+              className="h-[160px] p-6 md:p-10 rounded-[30px] md:rounded-[40px] flex flex-col items-center justify-center gap-1 md:gap-2 bg-gradient-to-b from-white/[0.03] to-white/[0.05] text-white/80"
             >
               <div className="relative font-bold text-[32px] leading-tight whitespace-nowrap">
                 <span><span className="md:hidden">{s.valueMobile}</span><span className="hidden md:inline">{s.value}</span></span>

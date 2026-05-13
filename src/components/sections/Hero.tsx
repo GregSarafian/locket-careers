@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '../motion/Reveal';
 import { BlurhashImage } from '../motion/Blurhash';
@@ -20,73 +20,74 @@ type Card = {
 const DESKTOP_CANVAS_W = 1245;
 const DESKTOP_CANVAS_H = 550;
 
-// Mobile collage canvas — from Figma frame 62:3219 (440px wide, ~552px tall).
+// Mobile collage canvas — 440px wide, height sized to tightly fit the 3-card
+// cluster (lowest card bottom + ~20px margin).
 const MOBILE_CANVAS_W = 440;
-const MOBILE_CANVAS_H = 552;
+const MOBILE_CANVAS_H = 600;
 
-// Desktop cards left-shifted by 69 from the original Figma coords so the row
-// is horizontally centered within the canvas (Figma had ~138px gap on
-// the left and ~0 on the right, so we balance to ~69px on each side).
-const desktopCards: Card[] = [
-  { src: '/assets/hero/hero-1.webp', left: 69,   top: 221, rotate: -4,  title: 'Team Offsite',   subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-2.webp', left: 195,  top: 328, rotate: 11,  title: 'Family Dinner',  subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-7.webp', left: 343,  top: 254, rotate: -10, title: 'Locket Moment',  subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-3.webp', left: 500,  top: 172, rotate: 8,   title: 'Group Selfie',   subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-4.webp', left: 618,  top: 315, rotate: -8,  title: 'Lunch Break',    subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-5.webp', left: 774,  top: 221, rotate: 0,   title: 'Morning Hike',   subtitle: 'Monterey, CA · 2024' },
-  { src: '/assets/hero/hero-6.webp', left: 888,  top: 343, rotate: 12,  title: 'Friends',        subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-8.webp', left: 976,  top: 210, rotate: -20, title: 'Studio Day',     subtitle: 'San Francisco, CA · 2024' },
+// Pool of all hero photos. On desktop we render a random 4-card subset of this
+// pool, placed into the fixed slots below.
+const desktopPhotoPool: Pick<Card, 'src' | 'title' | 'subtitle'>[] = [
+  { src: '/assets/hero/hero-1.webp', title: 'Team Offsite',   subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-2.webp', title: 'Family Dinner',  subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-7.webp', title: 'Locket Moment',  subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-3.webp', title: 'Group Selfie',   subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-4.webp', title: 'Lunch Break',    subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-5.webp', title: 'Morning Hike',   subtitle: 'Monterey, CA · 2024' },
+  { src: '/assets/hero/hero-6.webp', title: 'Friends',        subtitle: 'San Francisco, CA · 2024' },
+  { src: '/assets/hero/hero-8.webp', title: 'Studio Day',     subtitle: 'San Francisco, CA · 2024' },
 ];
 
-// Mobile cards — 5-card cluster from Figma. Card is 175x175 inside a rotated
-// bounding box; `left`/`top` are the top-left of the un-rotated 175px square.
-const mobileCards: Card[] = [
-  { src: '/assets/hero/hero-1.webp', left: 2,   top: 71,  rotate: -10, title: 'Team Offsite',  subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-7.webp', left: 253, top: 35,  rotate: -6,  title: 'Locket Moment', subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-3.webp', left: 161, top: 163, rotate: 8,   title: 'Group Selfie',  subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-4.webp', left: 26,  top: 267, rotate: 12,  title: 'Family Dinner', subtitle: 'San Francisco, CA · 2024' },
-  { src: '/assets/hero/hero-6.webp', left: 245, top: 305, rotate: -17, title: 'Friends',       subtitle: 'San Francisco, CA · 2024' },
+// Four fixed slots distributed across the 1245x550 canvas. Slots overlap
+// horizontally so the larger cards (360px) layer over each other, and tops
+// stagger vertically while keeping top + 360 <= 550.
+const desktopSlots: Omit<Card, 'src' | 'title' | 'subtitle'>[] = [
+  { left: 30,  top: 120, rotate: -6 },
+  { left: 315, top: 210, rotate: 10 },
+  { left: 600, top: 110, rotate: -8 },
+  { left: 885, top: 210, rotate: 6 },
+];
+
+// Mobile slots — three positions inside a 440x552 canvas. Cards are 260px
+// each and overlap heavily: two on the top row (left + right), with a third
+// pushed below and slightly off-center so it overlaps both.
+const mobileSlots: Omit<Card, 'src' | 'title' | 'subtitle'>[] = [
+  { left: 10,  top: 140, rotate: -10 },
+  { left: 90,  top: 340, rotate: 7 },
+  { left: 190, top: 20,  rotate: 8 },
 ];
 
 const pct = (n: number, total: number) => `${(n / total) * 100}%`;
 
-// Animation order: bottom-up (cards with the largest `top` value reveal first).
-const computeBottomUpOrder = (list: Card[]): number[] => {
-  const sorted = [...list].map((c, i) => ({ i, top: c.top })).sort((a, b) => b.top - a.top);
+// Animation order: left-to-right (cards with the smallest `left` value reveal first).
+const computeLeftToRightOrder = (list: Card[]): number[] => {
+  const sorted = [...list].map((c, i) => ({ i, left: c.left })).sort((a, b) => a.left - b.left);
   const rank = new Array<number>(list.length);
   sorted.forEach((s, order) => {
     rank[s.i] = order;
   });
   return rank;
 };
-const desktopOrder = computeBottomUpOrder(desktopCards);
-const mobileOrder = computeBottomUpOrder(mobileCards);
-
 type Layout = {
   canvasW: number;
   canvasH: number;
   cardSize: number;
-  border: number;
   radius: number;
   order: number[];
 };
 
-const DESKTOP_LAYOUT: Layout = {
+const DESKTOP_LAYOUT: Omit<Layout, 'order'> = {
   canvasW: DESKTOP_CANVAS_W,
   canvasH: DESKTOP_CANVAS_H,
-  cardSize: 200,
-  border: 16,
-  radius: 40,
-  order: desktopOrder,
+  cardSize: 330,
+  radius: 66,
 };
 
-const MOBILE_LAYOUT: Layout = {
+const MOBILE_LAYOUT: Omit<Layout, 'order'> = {
   canvasW: MOBILE_CANVAS_W,
   canvasH: MOBILE_CANVAS_H,
-  cardSize: 175,
-  border: 12,
-  radius: 36,
-  order: mobileOrder,
+  cardSize: 240,
+  radius: 48,
 };
 
 function PhotoCard({
@@ -98,7 +99,7 @@ function PhotoCard({
   ready,
   layout,
 }: Card & { index: number; ready: boolean; layout: Layout }) {
-  const { canvasW, canvasH, cardSize, border, radius, order } = layout;
+  const { canvasW, canvasH, cardSize, radius, order } = layout;
   return (
     <div
       className="absolute"
@@ -112,11 +113,9 @@ function PhotoCard({
       <motion.div
         className="relative block size-full overflow-hidden bg-[#1a1a1a]"
         style={{
-          borderWidth: `calc(${border} / ${canvasW} * 100cqw)`,
           borderRadius: `calc(${radius} / ${canvasW} * 100cqw)`,
-          borderColor: 'var(--color-bg)',
-          borderStyle: 'solid',
           boxSizing: 'border-box',
+          boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.35)',
           willChange: 'transform, filter',
         }}
         initial={{ opacity: 0, y: 20, rotate: rotate * 0.4, scale: 0.94, filter: 'blur(8px)' }}
@@ -126,7 +125,7 @@ function PhotoCard({
           ease: [0.22, 1, 0.36, 1],
           delay: 0.05 * order[index],
         }}
-        whileHover={{ rotate: rotate === 0 ? 4 : rotate * 0.5, scale: 1.05, transition: { duration: 0.4 } }}
+        whileHover={{ rotate: rotate === 0 ? 4 : rotate * 0.5, scale: 1.05, transition: { duration: 0.22 } }}
       >
         <BlurhashImage
           src={src}
@@ -138,6 +137,87 @@ function PhotoCard({
           draggable={false}
         />
       </motion.div>
+    </div>
+  );
+}
+
+type Sparkle = {
+  leftPct: number;
+  topPct: number;
+  size: number;
+  delay: number;
+  duration: number;
+  peak: number;
+};
+
+function generateSparkles(count: number): Sparkle[] {
+  // Stratified jitter: divide the area into a grid of cells and place one
+  // sparkle per cell with random offset so they spread across the hero
+  // instead of clumping.
+  const cols = Math.ceil(Math.sqrt(count * 0.6));
+  const rows = Math.ceil(count / cols);
+  const out: Sparkle[] = [];
+  for (let i = 0; i < count; i++) {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const cellW = 100 / cols;
+    const cellH = 100 / rows;
+    const leftPct = col * cellW + Math.random() * cellW;
+    const topPct = row * cellH + Math.random() * cellH;
+    out.push({
+      leftPct,
+      topPct,
+      size: 6 + Math.random() * 14,
+      delay: -Math.random() * 5,
+      duration: 3 + Math.random() * 2.5,
+      peak: 0.1 + Math.random() * 0.2,
+    });
+  }
+  return out;
+}
+
+function SparkleField() {
+  const sparkles = useMemo(() => generateSparkles(120), []);
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none z-0">
+      <style>{`
+        @keyframes sparkle-twinkle {
+          0% { opacity: 0; filter: blur(6px); transform: translate(-50%, calc(-50% + 10px)) scale(0.6); }
+          50% { opacity: var(--sparkle-peak); filter: blur(0); transform: translate(-50%, -50%) scale(1); }
+          100% { opacity: 0; filter: blur(6px); transform: translate(-50%, calc(-50% - 10px)) scale(0.6); }
+        }
+        .sparkle {
+          --sparkle-peak: 0.5;
+          animation: sparkle-twinkle var(--sparkle-duration, 8s) ease-in-out var(--sparkle-delay, 0s) infinite;
+          transition: --sparkle-peak 0.3s ease-out;
+          will-change: opacity, filter, transform;
+        }
+        .sparkle:hover { --sparkle-peak: calc(var(--sparkle-base, 0.5) + 0.25); }
+        @media (prefers-reduced-motion: reduce) {
+          .sparkle { animation: none; opacity: var(--sparkle-base, 0.4); filter: none; transform: translate(-50%, -50%); }
+        }
+      `}</style>
+      {sparkles.map((s, i) => (
+        <svg
+          key={i}
+          viewBox="0 0 28 28"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+          className="sparkle absolute pointer-events-auto block text-[var(--color-accent)]"
+          style={{
+            left: `${s.leftPct}%`,
+            top: `${s.topPct}%`,
+            width: s.size,
+            height: s.size,
+            ['--sparkle-base' as never]: s.peak,
+            ['--sparkle-peak' as never]: s.peak,
+            ['--sparkle-delay' as never]: `${s.delay}s`,
+            ['--sparkle-duration' as never]: `${s.duration}s`,
+          }}
+        >
+          <path d="M14.4111 24.6519C14.0566 24.6519 13.5195 24.3403 13.0254 24.0181C7.11719 20.1616 3.23926 15.564 3.23926 10.9556C3.23926 6.73389 6.17188 3.89795 9.69531 3.89795C11.8867 3.89795 13.4766 5.11182 14.4111 6.86279C15.3564 5.10107 16.9463 3.89795 19.1377 3.89795C22.6611 3.89795 25.5938 6.73389 25.5938 10.9556C25.5938 15.564 21.7158 20.1616 15.8076 24.0181C15.3135 24.3403 14.7764 24.6519 14.4111 24.6519Z" fill="currentColor" />
+        </svg>
+      ))}
     </div>
   );
 }
@@ -160,12 +240,28 @@ function useIsMobile(breakpointPx = 768) {
 export function Hero() {
   const [ready, setReady] = useState(false);
   const isMobile = useIsMobile();
-  const cards = isMobile ? mobileCards : desktopCards;
-  const layout = isMobile ? MOBILE_LAYOUT : DESKTOP_LAYOUT;
+  const [desktopCards] = useState<Card[]>(() => {
+    const shuffled = [...desktopPhotoPool].sort(() => Math.random() - 0.5);
+    return desktopSlots.map((slot, i) => ({ ...slot, ...shuffled[i] }));
+  });
+  const [mobileCards] = useState<Card[]>(() => {
+    const shuffled = [...desktopPhotoPool].sort(() => Math.random() - 0.5);
+    return mobileSlots.map((slot, i) => ({ ...slot, ...shuffled[i] }));
+  });
+  // Paint cards top-down: cards with the smallest `top` render first (behind),
+  // so the visually-lowest card sits in front of the upper-row cards.
+  const cards = useMemo(
+    () =>
+      [...(isMobile ? mobileCards : desktopCards)].sort((a, b) => a.top - b.top),
+    [isMobile, desktopCards, mobileCards],
+  );
+  const layout: Layout = isMobile
+    ? { ...MOBILE_LAYOUT, order: computeLeftToRightOrder(mobileCards) }
+    : { ...DESKTOP_LAYOUT, order: computeLeftToRightOrder(desktopCards) };
 
   useEffect(() => {
     let cancelled = false;
-    const allSources = Array.from(new Set([...desktopCards, ...mobileCards].map((c) => c.src)));
+    const allSources = desktopPhotoPool.map((p) => p.src);
     Promise.all(
       allSources.map(
         (src) =>
@@ -186,10 +282,11 @@ export function Hero() {
 
   const collageWidth = isMobile
     ? '90vw'
-    : `min(1500px, 100vw, calc((100dvh - 320px) * ${layout.canvasW} / ${layout.canvasH}))`;
+    : `min(1300px, 100vw, calc((100dvh - 380px) * ${layout.canvasW} / ${layout.canvasH}))`;
 
   return (
-    <section className="relative pt-15 md:pt-7 pb-2 md:pb-20 overflow-hidden">
+    <section className="relative pt-[90px] md:pt-0 pb-2 md:pb-0 md:min-h-[100dvh] md:flex md:flex-col md:justify-evenly overflow-hidden">
+      <SparkleField />
       <div
         className="relative mx-auto z-10"
         style={{
@@ -203,7 +300,7 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-1 pb-16 md:py-10 px-6 md:px-[120px] text-center">
+      <div className="relative z-30 flex flex-col items-center justify-center gap-4 pt-10 pb-12 md:py-0 px-6 md:px-[120px] text-center">
         <Reveal delay={0.2}>
           <h1 className="font-bold text-[28px] md:text-[40px] leading-none text-white/80 whitespace-nowrap">
             Careers at Locket
