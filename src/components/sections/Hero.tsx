@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { BlurhashImage } from '../motion/Blurhash';
 import { selectionHaptic } from '../../lib/haptics';
+import { roles } from '../../data/roles';
 
 // Card layout from Figma node 8:35.
 // Native canvas: 1245 x 550 (8 photos, 200x200 each, 16px black border, 40px radius).
@@ -289,7 +290,16 @@ export function Hero() {
 
   return (
     <section className="relative pt-[90px] md:pt-0 pb-4 md:pb-0 min-h-[100svh] flex flex-col overflow-hidden">
-      {ready && <SparkleField />}
+      {ready && (
+        <motion.div
+          className="absolute inset-0 z-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 1.1 }}
+        >
+          <SparkleField />
+        </motion.div>
+      )}
       <div aria-hidden className="flex-[0.75] md:flex-1" />
       <div
         className="relative mx-auto z-10"
@@ -307,24 +317,24 @@ export function Hero() {
 
       <div className="relative z-30 flex flex-col items-center justify-center gap-3 md:gap-4 md:py-0 px-6 md:px-[120px] text-center">
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           className="font-bold text-[28px] md:text-[40px] leading-none text-white/80 whitespace-nowrap"
         >
           Careers at Locket
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
           className="font-semibold text-[22px] leading-[28px] md:text-[28px] md:leading-tight text-white/60"
         >
           Build the social network that loves you back
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
         >
           <motion.a
@@ -337,7 +347,7 @@ export function Hero() {
             className="inline-flex items-start gap-2 text-[var(--color-accent)] font-bold text-[22px] leading-[28px] md:text-[20px] md:leading-[25px]"
           >
             <span className="relative pb-1.5">
-              Open Roles
+              View {roles.length} Open Roles
               <span aria-hidden className="absolute left-0 right-0 bottom-0 h-[2px] rounded-full bg-current/20" />
               <motion.span
                 aria-hidden
