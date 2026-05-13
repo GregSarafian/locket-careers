@@ -263,7 +263,14 @@ function FilterPill({
 
 export function OpenRoles() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
-  const [filter, setFilter] = useState<string>(ALL_FILTER);
+  const [filter, setFilterState] = useState<string>(ALL_FILTER);
+
+  const setFilter = (next: string) => {
+    setFilterState((prev) => {
+      if (prev !== next) setOpenSlug(null);
+      return next;
+    });
+  };
 
   const sortedRoles = useMemo(() => [...roles].sort(compareRoles), []);
 
