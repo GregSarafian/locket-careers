@@ -15,7 +15,7 @@ export function OurTeam() {
           </div>
           <div className="px-0 py-6 md:p-6">
             <p className="font-semibold text-[18px] leading-[24px] text-white/60 text-left">
-              Join a small team of 10, where everyone has high ownership and a massive impact on
+              Join a small team of 11, where everyone has high ownership and a massive impact on
               the product. Based in San Francisco with team members in Los Angeles, New York,
               Austin, Toronto, Argentina, and Vietnam.
             </p>
